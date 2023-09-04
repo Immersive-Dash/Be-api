@@ -1,2276 +1,2342 @@
 {
     "openapi": "3.0.3",
     "info": {
-        "title": "Immersive Dashboard - Group 2",
-        "version": "1.0.0",
-        "description": "OpenAPI for Immersive Dashboard",
-        "license": {
-            "name": "APACHE 2.0",
-            "url": "https://www.apache.org/licenses/LICENSE-2.0"
-        }
+      "title": "Immersive Dashboard - Group 2",
+      "version": "1.0.0",
+      "description": "OpenAPI for Immersive Dashboard",
+      "license": {
+        "name": "APACHE 2.0",
+        "url": "https://www.apache.org/licenses/LICENSE-2.0"
+      }
     },
     "servers": [
-        {
-            "url": "https://virtserver.swaggerhub.com/firhanaf/Immersive-Dashboard/1.0.0",
-            "description": "SwaggerHub API Auto Mocking",
-            "variables": {}
-        }
+      {
+        "url": "https://virtserver.swaggerhub.com/firhanaf/Immersive-Dashboard/1.0.0",
+        "description": "SwaggerHub API Auto Mocking",
+        "variables": {}
+      }
     ],
-
     "paths": {
-        "/login":{
-            "post": {
-                "tags": ["Authentication"],
-                "summary": "Login to system",
-                "requestBody":{
-                    "required": true,
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "email":{
-                                        "type": "string"
-
-                                    },
-                                    "password":{
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                    "email": "udin@gmail.com",
-                                    "password": "qwerty"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200" :{
-                        "description": "response success login",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "object",
-                                            "properties": {
-                                                "id":{
-                                                    "type": "integer"
-                                                },
-                                                "email":{
-                                                    "type": "string"
-                                                },
-                                                "token":{
-                                                    "type": "string"
-                                                },
-                                                "role":{
-                                                    "type": "string",
-                                                    "enum": ["admin", "user"]
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "success login",
-                                    "data": {
-                                        "id": 1122334455,
-                                        "email": "udin@gmail.com",
-                                        "token": "@12312asdad25-",
-                                        "role": "user"
-                                    }
-                                }
-                            }
-                        }
+      "/login": {
+        "post": {
+          "tags": [
+            "Authentication"
+          ],
+          "summary": "Login to system",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
                     },
-                    "500" :{
-                        "$ref": "#/components/responses/500"
+                    "password": {
+                      "type": "string"
                     }
+                  }
+                },
+                "example": {
+                  "email": "udin@gmail.com",
+                  "password": "qwerty"
                 }
-
+              }
             }
-        },
-        "/users":{
-            "get":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["User"],
-                "summary": "Get all users",
-                "responses": {
-                    "200":{
-                        "description": "response success get all users",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "array",
-                                            "items":{
-                                                "type": "object",
-                                                "properties": {
-                                                    "id":{
-                                                        "type": "integer"
-                                                    },
-                                                    "full_name":{
-                                                        "type": "string"
-                                                    },
-                                                    "team":{
-                                                        "type": "string"
-                                                    },
-                                                    "email":{
-                                                        "type": "string"
-                                                    }
-                                                }    
-                                            }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "success get all users",
-                                    "data": [
-                                        {
-                                        "id": 1,
-                                        "full_name": "Lionel Messi",
-                                        "team": "Academic",
-                                        "email": "lionel@10.com"
-                                    },
-                                    {
-                                        "id": 2,
-                                        "full_name": "Cristiano Ronaldo",
-                                        "team": "Admission",
-                                        "email": "cr7@mail.com"
-                                    }
-                                ]
-                                    
-                                    
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-
-            },
-            "post":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["User"],
-                "summary": "Register new user",
-                "requestBody":{
-                    "required": true,
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "full_name":{
-                                        "type": "string"
-                                    },
-                                    "email":{
-                                        "type": "string"
-                                    },
-                                    "password":{
-                                        "type": "string"
-                                    },
-                                    "role":{
-                                        "type": "string",
-                                        "enum": ["admin", "user"],
-                                        "default":"user"
-                                    },
-                                    "id_team":{
-                                        "type": "integer",
-                                        "format": "int64",
-                                        "default":1
-                                    }
-                                }
-                            },
-                            "example":{
-                                "full_name": "Samsudin",
-                                "email": "sam@mail.com",
-                                "password": "sam123",
-                                "role": "admin",
-                                "id_team": 1
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201":{
-                        "description": "success register new user",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "object",
-                                            "properties": {
-                                                "id":{
-                                                    "type": "integer"
-                                                },
-                                                "full_name":{
-                                                    "type": "string"
-                                                },
-                                                "email":{
-                                                    "type": "string"
-                                                },
-                                                "role":{
-                                                    "type": "string",
-                                                    "enum": ["admin", "user"]
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "success register user",
-                                    "data":{
-                                        "id": 10,
-                                        "full_name": "Samsudin",
-                                        "email": "sam@mail.com",
-                                        "role": "admin"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                       "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-
-            },
-            "put":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["User"],
-                "summary": "Update user profile",
-                "requestBody":{
-                    "required": true,
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "full_name":{
-                                        "type": "string"
-                                    },
-                                    "email":{
-                                        "type": "string"
-                                    },
-                                    "password":{
-                                        "type": "string"
-                                    },
-                                    "role":{
-                                        "type": "string",
-                                        "enum": ["admin", "user"],
-                                        "default":"user"
-                                    },
-                                    "id_team":{
-                                        "type": "integer",
-                                        "format": "int64",
-                                        "default":1
-                                    }
-                                }
-                            },
-                            "example":{
-                                "full_name": "Samsudin",
-                                "email": "sam@mail.com",
-                                "password": "sam123",
-                                "role": "admin",
-                                "id_team": 1
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200":{
-                        "description": "response success update user",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "array",
-                                            "items":{
-                                                "type": "object",
-                                                "properties": {
-                                                    "id":{
-                                                        "type": "integer"
-                                                    },
-                                                    "team":{
-                                                        "type": "string"
-                                                    },
-                                                    "full_name":{
-                                                        "type": "string"
-                                                    },
-                                                    "email":{
-                                                        "type": "string"
-                                                    },
-                                                    "role":{
-                                                        "type": "string"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "success update user",
-                                    "data":{
-                                        "id": 1,
-                                        "team": "Academic",
-                                        "full_name": "Samsudin",
-                                        "email": "sam@mail.com",
-                                        "role": "admin"
-                                        
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-
-                    }
-                }
-
-            }
-        },
-        "/users/{id_user}":{
-            "get":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["User"],
-                "summary": "Get specific user data",
-                "parameters": [
-                    {
-                        "name": "id_user",
-                        "in": "path",
-                        "required": true,
-                        "description": "Get user info by id",
-                        "schema":{
+          },
+          "responses": {
+            "200": {
+              "description": "response success login",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
                             "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "success get specific user data",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "array",
-                                            "items":{
-                                                "type": "object",
-                                                "properties": {
-                                                    "id":{
-                                                        "type": "integer"
-                                                    },
-                                                    "team":{
-                                                        "type": "string"
-                                                    },
-                                                    "full_name":{
-                                                        "type": "string"
-                                                    },
-                                                    "email":{
-                                                        "type": "string"
-                                                    },
-                                                    "role":{
-                                                        "type": "string"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "success get specific user data",
-                                    "data":{
-                                        "id": 1,
-                                        "team": "Academic",
-                                        "full_name": "Samsudin",
-                                        "email": "sam@mail.com",
-                                        "role": "admin"
-                                        
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-
-            },
-            "put":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["User"],
-                "summary": "Update specific user data",
-                "parameters": [
-                    {
-                        "name": "id_user",
-                        "in": "path",
-                        "required": true,
-                        "description": "Update user info by id",
-                        "schema":{
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody":{
-                    "required": true,
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "full_name":{
-                                        "type": "string"
-                                    },
-                                    "email":{
-                                        "type": "string"
-                                    },
-                                    "password":{
-                                        "type": "string"
-                                    }
-                                }
-
-                            },
-                            "example":{
-                                "full_name": "Samsudin",
-                                "email": "Sam@mail.com",
-                                "password": "sam123",
-                                "role": "admin",
-                                "id_team": 1
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200":{
-                        "description": "success update specific user data",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "array",
-                                            "items":{
-                                                "type": "object",
-                                                "properties": {
-                                                    "id":{
-                                                        "type": "integer"
-                                                    },
-                                                    "team":{
-                                                        "type": "string"
-                                                    },
-                                                    "full_name":{
-                                                        "type": "string"
-                                                    },
-                                                    "email":{
-                                                        "type": "string"
-                                                    },
-                                                    "role":{
-                                                        "type": "string"
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "success update user",
-                                    "data":{
-                                        "id": 1,
-                                        "team": "Academic",
-                                        "full_name": "Samsudin",
-                                        "email": "sam@mail.com",
-                                        "role": "admin"
-                                        
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-
-            },
-            "delete":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["User"],
-                "summary": "Deactive user",
-                "parameters": [
-                    {
-                        "name": "id_user",
-                        "in": "path",
-                        "required": true,
-                        "description": "Deactive user by id",
-                        "schema":{
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "response success deactive user",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "example": {
-                                    "message": "success deactive user",
-                                    "data": null
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-            }
-        },
-        "/classes":{
-            "get":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Class"],
-                "summary": "Get all classes info",
-                "responses": {
-                    "200":{
-                        "description": "response success get all classes",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "array",
-                                            "items":{
-                                                "type": "object",
-                                                "properties": {
-                                                    "id":{
-                                                        "type": "integer"
-                                                    },
-                                                    "name":{
-                                                        "type": "string"
-                                                    },
-                                                    "pic":{
-                                                        "type": "string"
-                                                    },
-                                                    "start_date":{
-                                                        "type": "string"
-                                                    },
-                                                    "graduate_date":{
-                                                        "type": "string"
-                                                    }
-                                                }    
-                                            }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "success get all classes",
-                                    "data": [
-                                        {
-                                        "id": 1,
-                                        "name": "FE 15",
-                                        "pic": "Bagas",
-                                        "start_date": "2023-07-01",
-                                        "graduate_date": "2023-10-30"
-                                    },
-                                    {
-                                        "id": 2,
-                                        "name": "BE 19",
-                                        "pic": "/Fakhry",
-                                        "start_date": "2023-07-01",
-                                        "graduate_date": "2023-10-30"
-                                    }
-                                ]
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-
-            },
-            "post":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Class"],
-                "summary": "Register new class",
-                "requestBody":{
-                    "required": true,
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "name":{
-                                        "type": "string"
-                                    },
-                                    "pic":{
-                                        "type": "integer"
-                                    },
-                                    "start_date":{
-                                        "type": "string"
-                                    },
-                                    "graduate_date":{
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "name": "FE 18",
-                                "pic": 10,
-                                "start_date": "2023-12-12",
-                                "graduate_date": "2024-04-12"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200":{
-                        "description": "response success create class",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "object",
-                                                "properties": {
-                                                    "id":{
-                                                        "type": "integer"
-                                                    },
-                                                    "name":{
-                                                        "type": "string"
-                                                    },
-                                                    "pic":{
-                                                        "type": "string"
-                                                    }
-                                                }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "success create classes",
-                                    "data": 
-                                    {
-                                        "id": 20,
-                                        "name": "FE 18",
-                                        "pic": "Ahmad"
-                                     }
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-
-            }
-        },
-        "/classes/{id_class}":{
-            "get":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Class"],
-                "summary": "Get specific class info",
-                "parameters": [
-                    {
-                        "name": "id_class",
-                        "in": "path",
-                        "required": true,
-                        "description": "Get class info by id",
-                        "schema":{
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "success get specific class data",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                                "type": "object",
-                                                "properties": {
-                                                    "id":{
-                                                        "type": "integer"
-                                                    },
-                                                    "name":{
-                                                        "type": "string"
-                                                    },
-                                                    "pic":{
-                                                        "type": "string"
-                                                    },
-                                                    "start_date":{
-                                                        "type": "string"
-                                                    },
-                                                    "graduate_date":{
-                                                        "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "success get specific class data",
-                                    "data":{
-                                        "id": 1,
-                                        "name": "FE 15",
-                                        "pic": "Bagas",
-                                        "start_date": "2023-07-01",
-                                        "graduate_date": "2023-10-30"
-                                        
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-
-            },
-            "put":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Class"],
-                "summary": "Update specific class info",
-                "parameters": [
-                    {
-                        "name": "id_class",
-                        "in": "path",
-                        "required": true,
-                        "description": "Update class info by id",
-                        "schema":{
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody":{
-                    "required": true,
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "name":{
-                                        "type": "string"
-                                    },
-                                    "start_date":{
-                                        "type": "string"
-                                    },
-                                    "graduate_date":{
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "name": "FE 18",
-                                "pic": 12,
-                                "start_date": "2023-12-12",
-                                "graduate_date": "2024-04-12"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200":{
-                        "description": "success get specific class data",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                                "type": "object",
-                                                "properties": {
-                                                    "id":{
-                                                        "type": "integer"
-                                                    },
-                                                    "name":{
-                                                        "type": "string"
-                                                    },
-                                                    "pic":{
-                                                        "type": "string"
-                                                    },
-                                                    "start_date":{
-                                                        "type": "string"
-                                                    },
-                                                    "graduate_date":{
-                                                        "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "success get specific class data",
-                                    "data":{
-                                        "id": 1,
-                                        "name": "FE 18",
-                                        "pic": "Bagas",
-                                        "start_date": "2024-12-12",
-                                        "graduate_date": "2024-04-12"
-                                        
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-
-            },
-            "delete":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Class"],
-                "summary": "Deactive specific class",
-                "parameters": [
-                    {
-                        "name": "id_user",
-                        "in": "path",
-                        "required": true,
-                        "description": "Deactive class by id",
-                        "schema":{
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "response success deactive class",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "example": {
-                                    "message": "success deactive class",
-                                    "data": null
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "description": "response data not found",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "data not found",
-                                    "data": null
-                                }
-                            }
-                        }
-                    },
-                    "500":{
-                        "description": "response internal server error",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "internal server error",
-                                    "data": null
-                                }
-                            }
-                        }
-
-                    }
-                }
-
-            }
-        },
-        "/mentees":{
-            "get":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Mentee"],
-                "summary": "Get all mentees data",
-                "parameters": [
-                    {
-                        "name": "class",
-                        "in": "query",
-                        "required": false,
-                        "description": "Filter mentees by class",
-                        "schema":{
+                          },
+                          "email": {
                             "type": "string"
-                        }
-                    },
-                    {
-                        "name": "status",
-                        "in": "query",
-                        "required": false,
-                        "description": "Filter mentees by status",
-                        "schema":{
+                          },
+                          "token": {
                             "type": "string"
+                          },
+                          "role": {
+                            "type": "string",
+                            "enum": [
+                              "admin",
+                              "user"
+                            ]
+                          }
                         }
-                    },
-                    {
-                        "name": "category",
-                        "in": "query",
-                        "required": false,
-                        "description": "Filter mentees by category, Available values : IT or Non-IT",
-                        "schema":{
-                            "type": "string"
-                        }
+                      }
                     }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "response success get all mentees",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "array",
-                                            "items":{
-                                                "type": "object",
-                                                "properties": {
-                                                    "id":{
-                                                        "type": "integer"
-                                                    },
-                                                    "class":{
-                                                        "type": "string"
-                                                    },
-                                                    "full_name":{
-                                                        "type": "string"
-                                                    },
-                                                    "nick_name":{
-                                                        "type": "string"
-                                                    },
-                                                    "status":{
-                                                        "type": "string"
-                                                    },
-                                                    "education_type":{
-                                                        "type": "string",
-                                                        "enum": ["IT", "Non-IT"]
-                                                    },
-                                                    "gender":{
-                                                        "type": "string",
-                                                        "enum": ["L", "P"]
-                                                    }
-                                                }    
-                                            }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "success get all mentees",
-                                    "data": [
-                                        {
-                                        "id": 1,
-                                        "class": "BE 1",
-                                        "full_name": "Lionel Messi",
-                                        "nick_name": "Leo",
-                                        "status": "Join Class",
-                                        "education_type": "IT",
-                                        "gender": "L"
-                                    },
-                                    {
-                                        "id": 2,
-                                        "class": "FE 1",
-                                        "full_name": "Cristiano Ronaldo",
-                                        "nick_name": "Cris",
-                                        "status": "Join Class",
-                                        "education_type": "Non-IT",
-                                        "gender": "L"
-                                    }
-                                ]
-                                    
-                                    
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
+                  },
+                  "example": {
+                    "message": "success login",
+                    "data": {
+                      "id": 1122334455,
+                      "email": "udin@gmail.com",
+                      "token": "@12312asdad25-",
+                      "role": "user"
                     }
+                  }
                 }
-
+              }
             },
-            "post":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Mentee"],
-                "summary": "Register new mentee",
-                "requestBody":{
-                    "required": true,
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "id_class":{
-                                        "type": "integer",
-                                        "default":1
-                                    },
-                                    "full_name":{
-                                        "type": "string"
-                                    },
-                                    "nick_name":{
-                                        "type": "string"
-                                    },
-                                    "email":{
-                                        "type": "string"
-                                    },
-                                    "phone":{
-                                        "type": "string"
-                                    },
-                                    "current_address":{
-                                        "type": "string"
-                                    },
-                                    "home_address":{
-                                        "type": "string"
-                                    },
-                                    "telegram":{
-                                        "type": "string"
-                                    },
-                                    "gender":{
-                                        "type": "string",
-                                        "enum": ["L", "P"]
-                                    },
-                                    "education_type":{
-                                        "type": "string",
-                                        "enum": ["IT", "Non-IT"]
-                                    },
-                                    "major":{
-                                        "type": "string"
-                                    },
-                                    "graduate":{
-                                        "type": "integer"
-                                    },
-                                    "institution":{
-                                        "type": "string"
-                                    },
-                                    "emergency_name":{
-                                        "type": "string"
-                                    },
-                                    "emergency_phone":{
-                                        "type": "string"
-                                    },
-                                    "emergency_status":{
-                                        "type": "string",
-                                        "enum": ["orang tua", "saudara kandung", "kakek nenek", "keluarga"]
-                                    },
-                                    "status":{
-                                        "type": "string",
-                                        "enum": ["interview", "join class", "unit 1", "unit 2", "unit 3", "repeat unit 1", "repeat unit 2", "repeat unit 3", "placement", "eliminated", "graduate"]
-                                    }
-                                }
-                            },
-                            "example": {
-                                "id_class": 2,
-                                "full_name": "Saefuddin",
-                                "nick_name": "Shaev",
-                                "email": "shaev@mail.com",
-                                "phone": "08111111",
-                                "current_address": "jl jombang 145",
-                                "home_address": "jl suhat 90",
-                                "telegram": "@shaev07",
-                                "gender": "L",
-                                "education_type": "Non-IT",
-                                "major": "Teknik Nuklir",
-                                "graduate": "2025",
-                                "institution": "Universitas Gajahduduk",
-                                "emergency_name": "My Mom",
-                                "emergency_phone": "08666",
-                                "emergency_status": "orang tua",
-                                "status": "interview"
-
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200":{
-                        "description": "success register mentee",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "object",
-                                            "properties": {
-                                                "id":{
-                                                    "type": "integer"
-                                                },
-                                                "full_name":{
-                                                    "type": "string"
-                                                },
-                                                "nick_name":{
-                                                    "type": "string"
-                                                },
-                                                "email":{
-                                                    "type": "string"
-                                                },
-                                                "phone":{
-                                                    "type": "string"
-                                                },
-                                                "telegram":{
-                                                    "type": "string"
-                                                },
-                                                "gender":{
-                                                    "type": "string",
-                                                    "enum": ["L", "P"]
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "example": {
-                                    "message": "success register mentee",
-                                    "data":{
-                                        "id": 3,
-                                        "full_name": "Saefuddin",
-                                        "nick_name": "Shaev",
-                                        "email": "shaev@mail.com",
-                                        "phone": "08111111",
-                                        "current_address": "jl jombang 145",
-                                        "home_address": "jl suhat 90",
-                                        "telegram": "@shaev07",
-                                        "gender": "L"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "400":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-
+            "500": {
+              "$ref": "#/components/responses/500"
             }
-        },
-        "/mentees/{id_mentee}":{
-            "get":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Mentee"],
-                "summary": "Get specific mentee data",
-                "parameters": [
-                    {
-                        "name": "id_mentee",
-                        "in": "path",
-                        "required": true,
-                        "description": "Get mentee info by id",
-                        "schema":{
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "success get specific mentee data",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "object",
-                                            "properties": {
-                                                "id":{
-                                                    "type": "integer"
-                                                },
-                                                "class":{
-                                                    "type": "string"
-                                                },
-                                                "full_name":{
-                                                    "type": "string"
-                                                },
-                                                "nick_name":{
-                                                    "type": "string"
-                                                },
-                                                "email":{
-                                                    "type": "string"
-                                                },
-                                                "phone":{
-                                                    "type": "string"
-                                                },
-                                                "current_address":{
-                                                    "type": "string"
-                                                },
-                                                "home_address":{
-                                                    "type": "string"
-                                                },
-                                                "gender":{
-                                                    "type": "string",
-                                                    "enum": ["L", "P"]
-                                                },
-                                                "education_type":{
-                                                    "type": "string",
-                                                    "enum": ["IT", "Non-IT"]
-                                                },
-                                                "major":{
-                                                    "type": "string"
-                                                },
-                                                "graduate":{
-                                                    "type": "string"
-                                                },
-                                                "institution":{
-                                                    "type": "string"
-                                                },
-                                                "emergency_name":{
-                                                    "type": "string"
-                                                },
-                                                "emergency_phone":{
-                                                    "type": "string"
-                                                },
-                                                "emergency_status":{
-                                                    "type": "string"
-                                                },
-                                                "feedback":{
-                                                    "type": "array",
-                                                    "items":{
-                                                        "type": "object",
-                                                        "properties": {
-                                                            "id":{
-                                                                "type": "integer"
-                                                            },
-                                                            "notes":{
-                                                                "type": "string"
-                                                            },
-                                                            "users":{
-                                                                "type": "string"
-                                                            },
-                                                            "status":{
-                                                                "type": "string"
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                
-                                            }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                        "message": "Success get specific mentee",
-                                        "data": {
-                                          "id": 1,
-                                          "class": "BE 11",
-                                          "full_name": "M. Yusup",
-                                          "nick_name": "Yusup",
-                                          "email": "myusup@gmail.com",
-                                          "phone": "081234567",
-                                          "current_address": "jl rumah saya, palembang",
-                                          "home_address": "jl rumah saya, palembang",
-                                          "telegram": "@daka",
-                                          "gender": "L",
-                                          "education_type": "non-informatics",
-                                          "major": "akuntansi",
-                                          "graduate": "2022",
-                                          "institution": "SMA 1 Palembang",
-                                          "emergency_name": "bapak ku",
-                                          "emergency_phone": "08123457",
-                                          "emergency_status": "orang tua",
-                                          "feedback": [
-                                            {
-                                              "id": 1,
-                                              "notes": "Ini bagian notes untuk mentee yang bersangkutan",
-                                              "users": "Jerry",
-                                              "status": "Join Class"
-                                            }
-                                        ]
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-
-            },
-            "put":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Mentee"],
-                "summary": "Update specific mentee data",
-                "parameters": [
-                    {
-                        "name": "id_mentee",
-                        "in": "path",
-                        "required": true,
-                        "description": "Update mentee info by id",
-                        "schema":{
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody":{
-                    "required": true,
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "id_class":{
-                                        "type": "integer"
-                                    },
-                                    "full_name":{
-                                        "type": "string"
-                                    },
-                                    "nick_name":{
-                                        "type": "string"
-                                    },
-                                    "email":{
-                                        "type": "string"
-                                    },
-                                    "phone":{
-                                        "type": "string"
-                                    },
-                                    "telegram":{
-                                        "type": "string"
-                                    },
-                                    "gender":{
-                                        "type": "string",
-                                        "enum": ["L", "P"]
-                                    }
-                                }
-                            },
-                            "example": {
-                                "id_class": 3,
-                                "full_name": "Saefuddin",
-                                "nick_name": "Shaev",
-                                "email": "shaev@mail.com",
-                                "phone": "08111111",
-                                "current_address": "jl jombang 145",
-                                "home_address": "jl suhat 90",
-                                "telegram": "@shaev07",
-                                "gender": "L"
-                            }
-
-                        }
-                    }
-                },
-                "responses": {
-                    "200":{
-                        "description": "success update mentee data",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "object",
-                                            "properties": {
-                                                "id_class":{
-                                                    "type": "integer"
-                                                },
-                                                "full_name":{
-                                                    "type": "string"
-                                                },
-                                                "nick_name":{
-                                                    "type": "string"
-                                                },
-                                                "email":{
-                                                    "type": "string"
-                                                },
-                                                "phone":{
-                                                    "type": "string"
-                                                },
-                                                "telegram":{
-                                                    "type": "string"
-                                                },
-                                                "gender":{
-                                                    "type": "string",
-                                                    "enum": ["L", "P"]
-                                                },
-                                                "education_type":{
-                                                    "type": "string",
-                                                    "enum": ["IT", "Non-IT"]
-                                                },
-                                                "major":{
-                                                    "type": "string"
-                                                },
-                                                "graduate":{
-                                                    "type": "string"
-                                                },
-                                                "institution":{
-                                                    "type": "string"
-                                                },
-                                                "emergency_name":{
-                                                    "type": "string"
-                                                },
-                                                "emergency_phone":{
-                                                    "type": "string"
-                                                },
-                                                "emergency_status":{
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "example": {
-                                    "message":"success update mentee data",
-                                    "data":{
-                                    "id_class": 3,
-                                    "full_name": "Saefuddin",
-                                    "nick_name": "Shaev",
-                                    "email": "shaev@mail.com",
-                                    "phone": "08111111",
-                                    "current_address": "jl jombang 145",
-                                    "home_address": "jl suhat 90",
-                                    "telegram": "@shaev07",
-                                    "gender": "L",
-                                    "education_type": "Non-IT",
-                                    "major": "Teknik Nuklir",
-                                    "graduate": "2025",
-                                    "institution": "Universitas Gajahduduk",
-                                    "emergency_name": "My Mom",
-                                    "emergency_phone": "08666",
-                                    "emergency_status": "orang tua",
-                                    "status": "interview"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-
-            },
-            "delete":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Mentee"],
-                "summary": "Deactive mentee",
-                "parameters": [
-                    {
-                        "name": "id_mentee",
-                        "in": "path",
-                        "required": true,
-                        "description": "Deactive mentee by id",
-                        "schema":{
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "response success deactive mentee",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "example": {
-                                    "message": "success deactive mentee",
-                                    "data": null
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-
-            }
-        },
-        "/mentees/{id_mentee}/feedback":{
-            "get":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Mentee"],
-                "summary": "Get specific mentee feedback data",
-                "parameters": [
-                    {
-                        "name": "id_mentee",
-                        "in": "path",
-                        "required": true,
-                        "description": "Get mentee feedback by id",
-                        "schema":{
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "success get specific mentee feedback data",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "object",
-                                            "properties": {
-                                                "id_mentee":{
-                                                    "type": "integer"
-                                                },
-                                                "name":{
-                                                    "type": "string"
-                                                },
-                                                "feedbacks":{
-                                                    "type": "array",
-                                                    "items":{
-                                                        "type": "object",
-                                                        "properties": {
-                                                            "id":{
-                                                                "type": "integer"
-                                                            },
-                                                            "id_status":{
-                                                                "type": "integer"
-                                                            },
-                                                            "notes":{
-                                                                "type": "string"
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "success get specific mentee feedback data",
-                                    "data": {
-                                        "id_mentee": 1,
-                                        "nama": "Jerry",
-                                        "feedbacks": [
-                                          {
-                                            "id": 1,
-                                            "id_status": 1,
-                                            "notes": "Ini bagian notes untuk mentee yang bersangkutan 1"
-                                          },
-                                          {
-                                            "id": 2,
-                                            "id_status": 2,
-                                            "notes": "Ini bagian notes untuk mentee yang bersangkutan 2"
-                                          }
-                                        ]
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                 
-            }
-        },
-        "/feedbacks":{
-            "post":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Feedback"],
-                "summary": "Register feedback for mentees",
-                "requestBody":{
-                    "required": true,
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "id_mentee":{
-                                        "type": "integer"
-                                    },
-                                    "id_status":{
-                                        "type": "integer"
-                                    },
-                                    "notes":{
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "notes": "Ini adalah catatan feedback untuk si fulan",
-                                "id_mentee": 20,
-                                "id_status": 2
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200":{
-                        "description": "success add feedback for mentee",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "object",
-                                            "properties": {
-                                                "id":{
-                                                    "type": "integer"
-                                                },
-                                                "notes":{
-                                                    "type": "string"
-                                                },
-                                                "user":{
-                                                    "type": "string"
-                                                },
-                                                "status":{
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "success add feedback",
-                                    "data":{
-                                        "id": 1,
-                                        "notes": "Ini merupakan notes untuk si fulan",
-                                        "user": "Ahmad",
-                                        "status": "Join Class"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-            }
-        },
-        "/feedbacks/{id_feedback}":{
-            "put":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Feedback"],
-                "summary": "Update specific feedback data",
-                "parameters": [
-                    {
-                        "name": "id_feedback",
-                        "in": "path",
-                        "required": true,
-                        "description": "Update feedback info by id",
-                        "schema":{
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody":{
-                    "required": true,
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "id_mentee":{
-                                        "type": "integer"
-                                    },
-                                    "id_status":{
-                                        "type": "integer"
-                                    },
-                                    "notes":{
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "notes": "Ini adalah update catatan feedback untuk si fulan",
-                                "id_user": 1,
-                                "id_mentee": 20,
-                                "id_status": 2
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200":{
-                        "description": "success add feedback for mentee",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "object",
-                                            "properties": {
-                                                "id":{
-                                                    "type": "integer"
-                                                },
-                                                "notes":{
-                                                    "type": "string"
-                                                },
-                                                "user":{
-                                                    "type": "string"
-                                                },
-                                                "status":{
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "success add feedback",
-                                    "data":{
-                                        "id": 1,
-                                        "notes": "Ini merupakan notes untuk si fulan",
-                                        "user": "Ahmad",
-                                        "status": "Join Class"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-
-            },
-            "delete":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Feedback"],
-                "summary": "Delete specific feedback data",
-                "parameters": [
-                    {
-                        "name": "id_feedback",
-                        "in": "path",
-                        "required": true,
-                        "description": "Delete feedback by id",
-                        "schema":{
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "response success delete feedback",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "example": {
-                                    "message": "success delete feedback",
-                                    "data": null
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-
-            }
-        },
-        "/status":{
-            "post":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Status"],
-                "summary": "Register new status",
-                "requestBody":{
-                    "required": true,
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "name":{
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "name": "unit 4"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200":{
-                        "description": "success add status",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "object",
-                                            "properties": {
-                                                "id":{
-                                                    "type": "integer"
-                                                },
-                                                "name":{
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "success add status",
-                                    "data": {
-                                        "id": 8,
-                                        "name": "unit 4"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-            }
-        },
-        "/status/{id_status}":{
-            "put":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Status"],
-                "summary": "Update specific status",
-                "parameters": [
-                    {
-                        "name": "id_status",
-                        "in": "path",
-                        "required": true,
-                        "description": "Update status by id",
-                        "schema":{
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "requestBody":{
-                    "required": true,
-                    "content": {
-                        "application/json":{
-                            "schema":{
-                                "type": "object",
-                                "properties": {
-                                    "name":{
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "name": "unit 5"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200":{
-                        "description": "success add status",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "object",
-                                            "properties": {
-                                                "id":{
-                                                    "type": "integer"
-                                                },
-                                                "name":{
-                                                    "type": "string"
-                                                }
-                                            }
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "success add status",
-                                    "data": {
-                                        "id": 8,
-                                        "name": "unit 4"
-                                    }
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-
-            },
-            "delete":{
-                "security": [
-                    {
-                        "immersiveDashAuth":[]
-                    }
-                ],
-                "tags": ["Status"],
-                "summary": "Delete specific status",
-                "parameters": [
-                    {
-                        "name": "id_status",
-                        "in": "path",
-                        "required": true,
-                        "description": "Delete status by id",
-                        "schema":{
-                            "type": "integer"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200":{
-                        "description": "response success deactive status",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "example": {
-                                    "message": "success deactive status",
-                                    "data": null
-                                }
-                            }
-                        }
-                    },
-                    "404":{
-                        "$ref": "#/components/responses/404"
-                    },
-                    "500":{
-                        "$ref": "#/components/responses/500"
-                    }
-                }
-
+          }
         }
-      
-    }
+      },
+      "/users": {
+        "get": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "User"
+          ],
+          "summary": "Get all users",
+          "responses": {
+            "200": {
+              "description": "response success get all users",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "full_name": {
+                              "type": "string"
+                            },
+                            "team": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success get all users",
+                    "data": [
+                      {
+                        "id": 1,
+                        "full_name": "Lionel Messi",
+                        "team": "Academic",
+                        "email": "lionel@10.com"
+                      },
+                      {
+                        "id": 2,
+                        "full_name": "Cristiano Ronaldo",
+                        "team": "Admission",
+                        "email": "cr7@mail.com"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        },
+        "post": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "User"
+          ],
+          "summary": "Register new user",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "full_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string",
+                      "enum": [
+                        "admin",
+                        "user"
+                      ],
+                      "default": "user"
+                    },
+                    "id_team": {
+                      "type": "integer",
+                      "format": "int64",
+                      "default": 1
+                    }
+                  }
+                },
+                "example": {
+                  "full_name": "Samsudin",
+                  "email": "sam@mail.com",
+                  "password": "sam123",
+                  "role": "admin",
+                  "id_team": 1
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "success register new user",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "full_name": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "role": {
+                            "type": "string",
+                            "enum": [
+                              "admin",
+                              "user"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success register user",
+                    "data": {
+                      "id": 10,
+                      "full_name": "Samsudin",
+                      "email": "sam@mail.com",
+                      "role": "admin"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        },
+        "put": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "User"
+          ],
+          "summary": "Update user profile",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "full_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    },
+                    "role": {
+                      "type": "string",
+                      "enum": [
+                        "admin",
+                        "user"
+                      ],
+                      "default": "user"
+                    },
+                    "id_team": {
+                      "type": "integer",
+                      "format": "int64",
+                      "default": 1
+                    }
+                  }
+                },
+                "example": {
+                  "full_name": "Samsudin",
+                  "email": "sam@mail.com",
+                  "password": "sam123",
+                  "role": "admin",
+                  "id_team": 1
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "response success update user",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "team": {
+                              "type": "string"
+                            },
+                            "full_name": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "role": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success update user",
+                    "data": {
+                      "id": 1,
+                      "team": "Academic",
+                      "full_name": "Samsudin",
+                      "email": "sam@mail.com",
+                      "role": "admin"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        }
+      },
+      "/users/{id_user}": {
+        "get": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "User"
+          ],
+          "summary": "Get specific user data",
+          "parameters": [
+            {
+              "name": "id_user",
+              "in": "path",
+              "required": true,
+              "description": "Get user info by id",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "success get specific user data",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "team": {
+                              "type": "string"
+                            },
+                            "full_name": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "role": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success get specific user data",
+                    "data": {
+                      "id": 1,
+                      "team": "Academic",
+                      "full_name": "Samsudin",
+                      "email": "sam@mail.com",
+                      "role": "admin"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        },
+        "put": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "User"
+          ],
+          "summary": "Update specific user data",
+          "parameters": [
+            {
+              "name": "id_user",
+              "in": "path",
+              "required": true,
+              "description": "Update user info by id",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "full_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "password": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "full_name": "Samsudin",
+                  "email": "Sam@mail.com",
+                  "password": "sam123",
+                  "role": "admin",
+                  "id_team": 1
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "success update specific user data",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "team": {
+                              "type": "string"
+                            },
+                            "full_name": {
+                              "type": "string"
+                            },
+                            "email": {
+                              "type": "string"
+                            },
+                            "role": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success update user",
+                    "data": {
+                      "id": 1,
+                      "team": "Academic",
+                      "full_name": "Samsudin",
+                      "email": "sam@mail.com",
+                      "role": "admin"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        },
+        "delete": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "User"
+          ],
+          "summary": "Deactive user",
+          "parameters": [
+            {
+              "name": "id_user",
+              "in": "path",
+              "required": true,
+              "description": "Deactive user by id",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "response success deactive user",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success deactive user",
+                    "data": null
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        }
+      },
+      "/classes": {
+        "get": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Class"
+          ],
+          "summary": "Get all classes info",
+          "responses": {
+            "200": {
+              "description": "response success get all classes",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "name": {
+                              "type": "string"
+                            },
+                            "pic": {
+                              "type": "string"
+                            },
+                            "start_date": {
+                              "type": "string"
+                            },
+                            "graduate_date": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success get all classes",
+                    "data": [
+                      {
+                        "id": 1,
+                        "name": "FE 15",
+                        "pic": "Bagas",
+                        "start_date": "2023-07-01",
+                        "graduate_date": "2023-10-30"
+                      },
+                      {
+                        "id": 2,
+                        "name": "BE 19",
+                        "pic": "/Fakhry",
+                        "start_date": "2023-07-01",
+                        "graduate_date": "2023-10-30"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        },
+        "post": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Class"
+          ],
+          "summary": "Register new class",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "pic": {
+                      "type": "integer"
+                    },
+                    "start_date": {
+                      "type": "string"
+                    },
+                    "graduate_date": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "name": "FE 18",
+                  "pic": 10,
+                  "start_date": "2023-12-12",
+                  "graduate_date": "2024-04-12"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "response success create class",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "pic": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success create classes",
+                    "data": {
+                      "id": 20,
+                      "name": "FE 18",
+                      "pic": "Ahmad"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        }
+      },
+      "/classes/{id_class}": {
+        "get": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Class"
+          ],
+          "summary": "Get specific class info",
+          "parameters": [
+            {
+              "name": "id_class",
+              "in": "path",
+              "required": true,
+              "description": "Get class info by id",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "success get specific class data",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "pic": {
+                            "type": "string"
+                          },
+                          "start_date": {
+                            "type": "string"
+                          },
+                          "graduate_date": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success get specific class data",
+                    "data": {
+                      "id": 1,
+                      "name": "FE 15",
+                      "pic": "Bagas",
+                      "start_date": "2023-07-01",
+                      "graduate_date": "2023-10-30"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        },
+        "put": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Class"
+          ],
+          "summary": "Update specific class info",
+          "parameters": [
+            {
+              "name": "id_class",
+              "in": "path",
+              "required": true,
+              "description": "Update class info by id",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "start_date": {
+                      "type": "string"
+                    },
+                    "graduate_date": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "name": "FE 18",
+                  "pic": 12,
+                  "start_date": "2023-12-12",
+                  "graduate_date": "2024-04-12"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "success get specific class data",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "pic": {
+                            "type": "string"
+                          },
+                          "start_date": {
+                            "type": "string"
+                          },
+                          "graduate_date": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success get specific class data",
+                    "data": {
+                      "id": 1,
+                      "name": "FE 18",
+                      "pic": "Bagas",
+                      "start_date": "2024-12-12",
+                      "graduate_date": "2024-04-12"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        },
+        "delete": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Class"
+          ],
+          "summary": "Deactive specific class",
+          "parameters": [
+            {
+              "name": "id_class",
+              "in": "path",
+              "required": true,
+              "description": "Deactive class by id",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "response success deactive class",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success deactive class",
+                    "data": null
+                  }
+                }
+              }
+            },
+            "404": {
+              "description": "response data not found",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "data not found",
+                    "data": null
+                  }
+                }
+              }
+            },
+            "500": {
+              "description": "response internal server error",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "internal server error",
+                    "data": null
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/mentees": {
+        "get": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Mentee"
+          ],
+          "summary": "Get all mentees data",
+          "parameters": [
+            {
+              "name": "class",
+              "in": "query",
+              "required": false,
+              "description": "Filter mentees by class",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "status",
+              "in": "query",
+              "required": false,
+              "description": "Filter mentees by status",
+              "schema": {
+                "type": "string"
+              }
+            },
+            {
+              "name": "category",
+              "in": "query",
+              "required": false,
+              "description": "Filter mentees by category, Available values : IT or Non-IT",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "response success get all mentees",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "integer"
+                            },
+                            "class": {
+                              "type": "string"
+                            },
+                            "full_name": {
+                              "type": "string"
+                            },
+                            "nick_name": {
+                              "type": "string"
+                            },
+                            "status": {
+                              "type": "string"
+                            },
+                            "education_type": {
+                              "type": "string",
+                              "enum": [
+                                "IT",
+                                "Non-IT"
+                              ]
+                            },
+                            "gender": {
+                              "type": "string",
+                              "enum": [
+                                "L",
+                                "P"
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success get all mentees",
+                    "data": [
+                      {
+                        "id": 1,
+                        "class": "BE 1",
+                        "full_name": "Lionel Messi",
+                        "nick_name": "Leo",
+                        "status": "Join Class",
+                        "education_type": "IT",
+                        "gender": "L"
+                      },
+                      {
+                        "id": 2,
+                        "class": "FE 1",
+                        "full_name": "Cristiano Ronaldo",
+                        "nick_name": "Cris",
+                        "status": "Join Class",
+                        "education_type": "Non-IT",
+                        "gender": "L"
+                      }
+                    ]
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        },
+        "post": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Mentee"
+          ],
+          "summary": "Register new mentee",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id_class": {
+                      "type": "integer",
+                      "default": 1
+                    },
+                    "full_name": {
+                      "type": "string"
+                    },
+                    "nick_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "current_address": {
+                      "type": "string"
+                    },
+                    "home_address": {
+                      "type": "string"
+                    },
+                    "telegram": {
+                      "type": "string"
+                    },
+                    "gender": {
+                      "type": "string",
+                      "enum": [
+                        "L",
+                        "P"
+                      ]
+                    },
+                    "education_type": {
+                      "type": "string",
+                      "enum": [
+                        "IT",
+                        "Non-IT"
+                      ]
+                    },
+                    "major": {
+                      "type": "string"
+                    },
+                    "graduate": {
+                      "type": "integer"
+                    },
+                    "institution": {
+                      "type": "string"
+                    },
+                    "emergency_name": {
+                      "type": "string"
+                    },
+                    "emergency_phone": {
+                      "type": "string"
+                    },
+                    "emergency_status": {
+                      "type": "string",
+                      "enum": [
+                        "orang tua",
+                        "saudara kandung",
+                        "kakek nenek",
+                        "keluarga"
+                      ]
+                    },
+                    "status": {
+                      "type": "string",
+                      "enum": [
+                        "interview",
+                        "join class",
+                        "unit 1",
+                        "unit 2",
+                        "unit 3",
+                        "repeat unit 1",
+                        "repeat unit 2",
+                        "repeat unit 3",
+                        "placement",
+                        "eliminated",
+                        "graduate"
+                      ]
+                    }
+                  }
+                },
+                "example": {
+                  "id_class": 2,
+                  "full_name": "Saefuddin",
+                  "nick_name": "Shaev",
+                  "email": "shaev@mail.com",
+                  "phone": "08111111",
+                  "current_address": "jl jombang 145",
+                  "home_address": "jl suhat 90",
+                  "telegram": "@shaev07",
+                  "gender": "L",
+                  "education_type": "Non-IT",
+                  "major": "Teknik Nuklir",
+                  "graduate": "2025",
+                  "institution": "Universitas Gajahduduk",
+                  "emergency_name": "My Mom",
+                  "emergency_phone": "08666",
+                  "emergency_status": "orang tua",
+                  "status": "interview"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "success register mentee",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "full_name": {
+                            "type": "string"
+                          },
+                          "nick_name": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "phone": {
+                            "type": "string"
+                          },
+                          "telegram": {
+                            "type": "string"
+                          },
+                          "gender": {
+                            "type": "string",
+                            "enum": [
+                              "L",
+                              "P"
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success register mentee",
+                    "data": {
+                      "id": 3,
+                      "full_name": "Saefuddin",
+                      "nick_name": "Shaev",
+                      "email": "shaev@mail.com",
+                      "phone": "08111111",
+                      "current_address": "jl jombang 145",
+                      "home_address": "jl suhat 90",
+                      "telegram": "@shaev07",
+                      "gender": "L"
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        }
+      },
+      "/mentees/{id_mentee}": {
+        "get": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Mentee"
+          ],
+          "summary": "Get specific mentee data",
+          "parameters": [
+            {
+              "name": "id_mentee",
+              "in": "path",
+              "required": true,
+              "description": "Get mentee info by id",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "success get specific mentee data",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "class": {
+                            "type": "string"
+                          },
+                          "full_name": {
+                            "type": "string"
+                          },
+                          "nick_name": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "phone": {
+                            "type": "string"
+                          },
+                          "current_address": {
+                            "type": "string"
+                          },
+                          "home_address": {
+                            "type": "string"
+                          },
+                          "gender": {
+                            "type": "string",
+                            "enum": [
+                              "L",
+                              "P"
+                            ]
+                          },
+                          "education_type": {
+                            "type": "string",
+                            "enum": [
+                              "IT",
+                              "Non-IT"
+                            ]
+                          },
+                          "major": {
+                            "type": "string"
+                          },
+                          "graduate": {
+                            "type": "string"
+                          },
+                          "institution": {
+                            "type": "string"
+                          },
+                          "emergency_name": {
+                            "type": "string"
+                          },
+                          "emergency_phone": {
+                            "type": "string"
+                          },
+                          "emergency_status": {
+                            "type": "string"
+                          },
+                          "feedback": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "notes": {
+                                  "type": "string"
+                                },
+                                "users": {
+                                  "type": "string"
+                                },
+                                "status": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "Success get specific mentee",
+                    "data": {
+                      "id": 1,
+                      "class": "BE 11",
+                      "full_name": "M. Yusup",
+                      "nick_name": "Yusup",
+                      "email": "myusup@gmail.com",
+                      "phone": "081234567",
+                      "current_address": "jl rumah saya, palembang",
+                      "home_address": "jl rumah saya, palembang",
+                      "telegram": "@daka",
+                      "gender": "L",
+                      "education_type": "non-informatics",
+                      "major": "akuntansi",
+                      "graduate": "2022",
+                      "institution": "SMA 1 Palembang",
+                      "emergency_name": "bapak ku",
+                      "emergency_phone": "08123457",
+                      "emergency_status": "orang tua",
+                      "feedback": [
+                        {
+                          "id": 1,
+                          "notes": "Ini bagian notes untuk mentee yang bersangkutan",
+                          "users": "Jerry",
+                          "status": "Join Class"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        },
+        "put": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Mentee"
+          ],
+          "summary": "Update specific mentee data",
+          "parameters": [
+            {
+              "name": "id_mentee",
+              "in": "path",
+              "required": true,
+              "description": "Update mentee info by id",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id_class": {
+                      "type": "integer"
+                    },
+                    "full_name": {
+                      "type": "string"
+                    },
+                    "nick_name": {
+                      "type": "string"
+                    },
+                    "email": {
+                      "type": "string"
+                    },
+                    "phone": {
+                      "type": "string"
+                    },
+                    "telegram": {
+                      "type": "string"
+                    },
+                    "gender": {
+                      "type": "string",
+                      "enum": [
+                        "L",
+                        "P"
+                      ]
+                    }
+                  }
+                },
+                "example": {
+                  "id_class": 3,
+                  "full_name": "Saefuddin",
+                  "nick_name": "Shaev",
+                  "email": "shaev@mail.com",
+                  "phone": "08111111",
+                  "current_address": "jl jombang 145",
+                  "home_address": "jl suhat 90",
+                  "telegram": "@shaev07",
+                  "gender": "L"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "success update mentee data",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id_class": {
+                            "type": "integer"
+                          },
+                          "full_name": {
+                            "type": "string"
+                          },
+                          "nick_name": {
+                            "type": "string"
+                          },
+                          "email": {
+                            "type": "string"
+                          },
+                          "phone": {
+                            "type": "string"
+                          },
+                          "telegram": {
+                            "type": "string"
+                          },
+                          "gender": {
+                            "type": "string",
+                            "enum": [
+                              "L",
+                              "P"
+                            ]
+                          },
+                          "education_type": {
+                            "type": "string",
+                            "enum": [
+                              "IT",
+                              "Non-IT"
+                            ]
+                          },
+                          "major": {
+                            "type": "string"
+                          },
+                          "graduate": {
+                            "type": "string"
+                          },
+                          "institution": {
+                            "type": "string"
+                          },
+                          "emergency_name": {
+                            "type": "string"
+                          },
+                          "emergency_phone": {
+                            "type": "string"
+                          },
+                          "emergency_status": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success update mentee data",
+                    "data": {
+                      "id_class": 3,
+                      "full_name": "Saefuddin",
+                      "nick_name": "Shaev",
+                      "email": "shaev@mail.com",
+                      "phone": "08111111",
+                      "current_address": "jl jombang 145",
+                      "home_address": "jl suhat 90",
+                      "telegram": "@shaev07",
+                      "gender": "L",
+                      "education_type": "Non-IT",
+                      "major": "Teknik Nuklir",
+                      "graduate": "2025",
+                      "institution": "Universitas Gajahduduk",
+                      "emergency_name": "My Mom",
+                      "emergency_phone": "08666",
+                      "emergency_status": "orang tua",
+                      "status": "interview"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        },
+        "delete": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Mentee"
+          ],
+          "summary": "Deactive mentee",
+          "parameters": [
+            {
+              "name": "id_mentee",
+              "in": "path",
+              "required": true,
+              "description": "Deactive mentee by id",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "response success deactive mentee",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success deactive mentee",
+                    "data": null
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        }
+      },
+      "/mentees/{id_mentee}/feedback": {
+        "get": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Mentee"
+          ],
+          "summary": "Get specific mentee feedback data",
+          "parameters": [
+            {
+              "name": "id_mentee",
+              "in": "path",
+              "required": true,
+              "description": "Get mentee feedback by id",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "success get specific mentee feedback data",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id_mentee": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "feedbacks": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "integer"
+                                },
+                                "id_status": {
+                                  "type": "integer"
+                                },
+                                "notes": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success get specific mentee feedback data",
+                    "data": {
+                      "id_mentee": 1,
+                      "nama": "Jerry",
+                      "feedbacks": [
+                        {
+                          "id": 1,
+                          "id_status": 1,
+                          "notes": "Ini bagian notes untuk mentee yang bersangkutan 1"
+                        },
+                        {
+                          "id": 2,
+                          "id_status": 2,
+                          "notes": "Ini bagian notes untuk mentee yang bersangkutan 2"
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/feedbacks": {
+        "post": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Feedback"
+          ],
+          "summary": "Register feedback for mentees",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id_mentee": {
+                      "type": "integer"
+                    },
+                    "id_status": {
+                      "type": "integer"
+                    },
+                    "notes": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "notes": "Ini adalah catatan feedback untuk si fulan",
+                  "id_mentee": 20,
+                  "id_status": 2
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "success add feedback for mentee",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "notes": {
+                            "type": "string"
+                          },
+                          "user": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success add feedback",
+                    "data": {
+                      "id": 1,
+                      "notes": "Ini merupakan notes untuk si fulan",
+                      "user": "Ahmad",
+                      "status": "Join Class"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        }
+      },
+      "/feedbacks/{id_feedback}": {
+        "put": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Feedback"
+          ],
+          "summary": "Update specific feedback data",
+          "parameters": [
+            {
+              "name": "id_feedback",
+              "in": "path",
+              "required": true,
+              "description": "Update feedback info by id",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id_mentee": {
+                      "type": "integer"
+                    },
+                    "id_status": {
+                      "type": "integer"
+                    },
+                    "notes": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "notes": "Ini adalah update catatan feedback untuk si fulan",
+                  "id_user": 1,
+                  "id_mentee": 20,
+                  "id_status": 2
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "success add feedback for mentee",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "notes": {
+                            "type": "string"
+                          },
+                          "user": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success add feedback",
+                    "data": {
+                      "id": 1,
+                      "notes": "Ini merupakan notes untuk si fulan",
+                      "user": "Ahmad",
+                      "status": "Join Class"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        },
+        "delete": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Feedback"
+          ],
+          "summary": "Delete specific feedback data",
+          "parameters": [
+            {
+              "name": "id_feedback",
+              "in": "path",
+              "required": true,
+              "description": "Delete feedback by id",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "response success delete feedback",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success delete feedback",
+                    "data": null
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        }
+      },
+      "/status": {
+        "post": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Status"
+          ],
+          "summary": "Register new status",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "name": "unit 4"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "success add status",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success add status",
+                    "data": {
+                      "id": 8,
+                      "name": "unit 4"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        }
+      },
+      "/status/{id_status}": {
+        "put": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Status"
+          ],
+          "summary": "Update specific status",
+          "parameters": [
+            {
+              "name": "id_status",
+              "in": "path",
+              "required": true,
+              "description": "Update status by id",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "name": "unit 5"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "success add status",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "integer"
+                          },
+                          "name": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success add status",
+                    "data": {
+                      "id": 8,
+                      "name": "unit 4"
+                    }
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        },
+        "delete": {
+          "security": [
+            {
+              "immersiveDashAuth": []
+            }
+          ],
+          "tags": [
+            "Status"
+          ],
+          "summary": "Delete specific status",
+          "parameters": [
+            {
+              "name": "id_status",
+              "in": "path",
+              "required": true,
+              "description": "Delete status by id",
+              "schema": {
+                "type": "integer"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "response success deactive status",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "example": {
+                    "message": "success deactive status",
+                    "data": null
+                  }
+                }
+              }
+            },
+            "404": {
+              "$ref": "#/components/responses/404"
+            },
+            "500": {
+              "$ref": "#/components/responses/500"
+            }
+          }
+        }
+      }
     },
     "components": {
-        "securitySchemes": {
-            "immersiveDashAuth":{
-                "type": "http",
-                "description": "Authentication for Immersive Dashboard",
-                "scheme": "bearer",
-                "bearerFormat": "JWT"
-            }
-        },
-        
-        "responses": {
-            "404":{
-                "description": "response data not found",
-                "content": {
-                    "application/json":{
-                        "schema":{
-                            "type": "object",
-                            "properties": {
-                                "message":{
-                                    "type": "string"
-                                },
-                                "data":{
-                                    "type": "string"
-                                }
-                            },
-                            "example":{
-                                "message": "data not found",
-                                "data": null
-                            }
-                        }
-                    }
-                }
-            },
-            "500":{
-                "description": "response internal server error",
-                        "content": {
-                            "application/json":{
-                                "schema":{
-                                    "type": "object",
-                                    "properties": {
-                                        "message":{
-                                            "type": "string"
-                                        },
-                                        "data":{
-                                            "type": "string"
-                                        }
-                                    }
-                                },
-                                "example":{
-                                    "message": "internal server error",
-                                    "data": null
-                                }
-                            }
-                        }
-            }
+      "securitySchemes": {
+        "immersiveDashAuth": {
+          "type": "http",
+          "description": "Authentication for Immersive Dashboard",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
         }
+      },
+      "responses": {
+        "404": {
+          "description": "response data not found",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  },
+                  "data": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "message": "data not found",
+                  "data": null
+                }
+              }
+            }
+          }
+        },
+        "500": {
+          "description": "response internal server error",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "message": {
+                    "type": "string"
+                  },
+                  "data": {
+                    "type": "string"
+                  }
+                }
+              },
+              "example": {
+                "message": "internal server error",
+                "data": null
+              }
+            }
+          }
+        }
+      }
     }
-}
+  }
