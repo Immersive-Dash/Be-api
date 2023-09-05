@@ -1,6 +1,7 @@
 package service
 
 import (
+	"Immersive_dash/app/middlewares"
 	"Immersive_dash/features/user"
 
 	"github.com/go-playground/validator"
@@ -30,7 +31,16 @@ func (service *userService) GetUser() ([]user.Core, error) {
 
 // LoginUser implements user.UserServiceInterface.
 func (service *userService) LoginUser(email string, password string) (dataLogin user.Core, token string, err error) {
-	panic("unimplemented")
+	// panic("unimplemented")
+	dataLogin, err = service.userData.Login(email, password)
+	if err != nil {
+		return user.Core{}, "", err
+	}
+	token, err = middlewares.CreateToken(dataLogin.Role)
+	if err != nil {
+		return user.Core{}, "", err
+	}
+	return dataLogin, token, nil
 }
 
 // ReadUserById implements user.UserServiceInterface.

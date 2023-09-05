@@ -1,6 +1,7 @@
 package router
 
 import (
+	"Immersive_dash/app/middlewares"
 	"Immersive_dash/features/user/data"
 	"Immersive_dash/features/user/handler"
 	"Immersive_dash/features/user/service"
@@ -14,5 +15,6 @@ func InitRouter(db *gorm.DB, e *echo.Echo) {
 	userService := service.New(userData)
 	userHandlerAPI := handler.New(userService)
 
-	e.GET("/users", userHandlerAPI.ReadUser)
+	e.GET("/users", userHandlerAPI.ReadUser, middlewares.JWTMiddleware())
+	e.POST("/login", userHandlerAPI.Login)
 }

@@ -5,6 +5,7 @@ import (
 	"Immersive_dash/features/user"
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/labstack/echo/v4"
 )
@@ -35,4 +36,28 @@ func (handler *userHandler) ReadUser(c echo.Context) error {
 		fmt.Println("data: ", userResponse)
 	}
 	return c.JSON(http.StatusOK, helpers.WebResponse(http.StatusOK, "success read data", userResponse))
+}
+
+func (handler *userHandler) Login(c echo.Context) error {
+	userInput := new(LoginRequest)
+	errBind := c.Bind(&userInput)
+	if errBind != nil {
+		return c.JSON(http.StatusBadRequest, helpers.WebResponse(http.StatusBadRequest, "error bind data. data not valid", nil))
+	}
+	dataLogin, token, err := handler.userService.LoginUser(userInput.Email, userInput.Password)
+	if err != nil {
+		if strings.Contains(err.Error(), "validation") {
+			return c.JSON(http.StatusBadRequest, helpers.WebResponse(http.StatusBadRequest, err.Error(), nil))
+		} else {
+			return c.JSON(http.StatusInternalServerError, helpers.WebResponse(http.StatusInternalServerError, "error login", nil))
+
+		}
+	}
+	response := map[string]any{
+		"token": token,
+		"role":  dataLogin.Role,
+		"id":    dataLogin.ID,
+		"email": dataLogin.Email,
+	}
+	return c.JSON(http.StatusOK, helpers.WebResponse(http.StatusOK, "success login", response))
 }
