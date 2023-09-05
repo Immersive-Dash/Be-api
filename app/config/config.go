@@ -18,8 +18,6 @@ type AppConfig struct {
 	DB_HOSTNAME string
 	DB_PORT     int
 	DB_NAME     string
-	// JWT_SECRET  string
-	// APP_PATH    string
 }
 
 func InitConfig() *AppConfig {
@@ -31,11 +29,6 @@ func ReadEnv() *AppConfig {
 	app := AppConfig{}
 	isRead := true
 
-	// proses mencari & membaca environment var dg key tertentu
-	// if val, found := os.LookupEnv("JWT_KEY"); found {
-	// 	app.JWT_SECRET = val
-	// 	isRead = false
-	// }
 	if val, found := os.LookupEnv("DBUSER"); found {
 		app.DB_USERNAME = val
 		isRead = false
@@ -58,7 +51,7 @@ func ReadEnv() *AppConfig {
 		isRead = false
 	}
 	if val, found := os.LookupEnv("JWTSECRET"); found {
-		app.DB_NAME = val
+		JWT_SECRET = val
 		isRead = false
 	}
 
