@@ -61,3 +61,11 @@ func (handler *userHandler) Login(c echo.Context) error {
 	}
 	return c.JSON(http.StatusOK, helpers.WebResponse(http.StatusOK, "success login", response))
 }
+
+// func (handler *userHandler) Register(c echo.Context) error {
+// 	userInput := new(user.Core)
+// 	errBind := c.Bind(&userInput)
+// 	if err != nil {
+// 		return c.JSON(http.StatusBadRequest, helpers.WebResponse(http.StatusBadRequest, "error bind data. data not valid", nil))
+// 	}
+// }
