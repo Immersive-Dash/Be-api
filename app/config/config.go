@@ -18,8 +18,6 @@ type AppConfig struct {
 	DB_HOSTNAME string
 	DB_PORT     int
 	DB_NAME     string
-	// JWT_SECRET  string
-	// APP_PATH    string
 }
 
 func InitConfig() *AppConfig {
