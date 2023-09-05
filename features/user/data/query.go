@@ -2,6 +2,7 @@ package data
 
 import (
 	"Immersive_dash/features/user"
+	"errors"
 
 	"gorm.io/gorm"
 )
@@ -17,7 +18,17 @@ func (repo *userQuery) DeleteById(id uint) error {
 
 // Login implements user.UserDataInterface.
 func (repo *userQuery) Login(email string, password string) (dataLogin user.Core, err error) {
-	panic("unimplemented")
+	// panic("unimplemented")
+	var data User
+	tx := repo.db.Where("email = ? and password = ?", email, password).Find(&data)
+	if tx.Error != nil {
+		return user.Core{}, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return user.Core{}, errors.New("data not found")
+	}
+	dataLogin = UserModelToCore(data)
+	return dataLogin, nil
 }
 
 // Read implements user.UserDataInterface.
