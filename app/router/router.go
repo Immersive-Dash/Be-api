@@ -22,8 +22,11 @@ func InitRouter(db *gorm.DB, e *echo.Echo) {
 	menteeService := menteeS.New(menteeData)
 	menteeHandlerAPI := menteeH.New(menteeService)
 
+	// User Endpoint
 	e.GET("/users", userHandlerAPI.ReadUser, middlewares.JWTMiddleware())
 	e.POST("/login", userHandlerAPI.Login)
+	e.POST("/users", userHandlerAPI.RegisterUser, middlewares.JWTMiddleware())
 
-	e.POST("/mentee", menteeHandlerAPI.CreateMentee, middlewares.JWTMiddleware())
+	// Mentee Endpoint
+	e.POST("/mentees", menteeHandlerAPI.CreateMentee, middlewares.JWTMiddleware())
 }

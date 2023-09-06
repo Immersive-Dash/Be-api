@@ -6,3 +6,4 @@ type MenteeResponse struct {
 	Email    string `json:"email"`
 	Phone    int    `json:"phone"`
 	Telegram string `json:"telegram"`
+}

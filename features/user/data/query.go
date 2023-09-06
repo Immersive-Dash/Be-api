@@ -62,8 +62,14 @@ func (repo *userQuery) ReadById(id uint) (user.Core, error) {
 }
 
 // Register implements user.UserDataInterface.
-func (repo *userQuery) Register(input user.Core) error {
-	panic("unimplemented")
+func (repo *userQuery) Register(input user.Core) (user.Core, error) {
+	// panic("unimplemented")
+	userGorm := UserCoreToModel(input)
+	tx := repo.db.Create(&userGorm) // proses query insert
+	if tx.Error != nil {
+		return user.Core{}, tx.Error
+	}
+	return UserModelToCore(userGorm), nil
 }
 
 // Update implements user.UserDataInterface.

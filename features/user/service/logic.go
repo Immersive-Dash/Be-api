@@ -13,8 +13,10 @@ type userService struct {
 }
 
 // CreateUser implements user.UserServiceInterface.
-func (service *userService) CreateUser(input user.Core) error {
-	panic("unimplemented")
+func (service *userService) CreateUser(input user.Core) (user.Core, error) {
+	// panic("unimplemented")
+	result, err := service.userData.Register(input)
+	return result, err
 }
 
 // DeleteUserById implements user.UserServiceInterface.
