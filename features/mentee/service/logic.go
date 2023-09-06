@@ -39,3 +39,36 @@ func (service *menteeService) Delete(id uint) error {
 func (service *menteeService) GetById(id uint) (mentee.Core, error) {
 	return service.menteeData.SelectById(id)
 }
+
+func (service *menteeService) Update(id uint, newData mentee.Core) error {
+
+	errValidate := service.validate.Struct(newData)
+	if errValidate != nil {
+		return errors.New("validation error" + errValidate.Error())
+	}
+
+	existingData, err := service.menteeData.SelectById(id)
+	if err != nil {
+		return err
+	}
+
+	existingData.FullName = newData.FullName
+	existingData.NickName = newData.NickName
+	existingData.Email = newData.Email
+	existingData.Phone = newData.Phone
+	existingData.CurrentAddress = newData.CurrentAddress
+	existingData.HomeAddress = newData.HomeAddress
+	existingData.Telegram = newData.Telegram
+	existingData.Gender = newData.Gender
+	existingData.EducationType = newData.EducationType
+	existingData.Major = newData.Major
+	existingData.Graduate = newData.Graduate
+	existingData.Institution = newData.Institution
+	existingData.EmergencyName = newData.EmergencyName
+	existingData.EmergencyPhone = newData.EmergencyPhone
+	existingData.EmergencyStatus = newData.EmergencyStatus
+
+	err = service.menteeData.Update(existingData)
+
+	return err
+}
