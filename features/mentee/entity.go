@@ -3,18 +3,18 @@ package mentee
 import "time"
 
 type Core struct {
-	ID              uint
-	Created_At      time.Time
-	Updated_At      time.Time
-	Deleted_At      time.Time
-	FullName        string
-	NickName        string
-	Email           string
-	Phone           int
-	CurrentAddress  string
-	HomeAddress     string
-	Telegram        string
-	ClassID         uint
+	ID             uint
+	Created_At     time.Time
+	Updated_At     time.Time
+	Deleted_At     time.Time
+	FullName       string
+	NickName       string
+	Email          string
+	Phone          string
+	CurrentAddress string
+	HomeAddress    string
+	Telegram       string
+	//ClassID         uint
 	StatusID        uint
 	Gender          string
 	EducationType   string
@@ -22,7 +22,7 @@ type Core struct {
 	Graduate        string
 	Institution     string
 	EmergencyName   string
-	EmergencyPhone  int
+	EmergencyPhone  string
 	EmergencyStatus string
 	Status          StatusEntity
 }
@@ -40,10 +40,12 @@ type MenteeDataInterface interface {
 	Insert(input Core) error
 	Delete(id uint) error
 	SelectById(id uint) (Core, error)
+	Update(data Core) error
 }
 
 type MenteeServiceInterface interface {
 	Create(input Core) error
 	Delete(id uint) error
 	GetById(id uint) (Core, error)
+	Update(id uint, newData Core) error
 }
