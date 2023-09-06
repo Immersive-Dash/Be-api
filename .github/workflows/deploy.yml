@@ -45,4 +45,4 @@ jobs:
             docker rm be18Container
             docker rmi ${{ secrets.DOCKERHUB_USERNAME }}/be18-images
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/be18-images
-            docker run -d -p 80:80 -e DBUSER=${{ secrets.DBUSER }} -e DBPASS=${{ secrets.DBPASS }} -e DBHOST=${{ secrets.DBHOST }} -e DBPORT=${{ secrets.DBPORT }} -e DBNAME=${{ secrets.DBNAME }} -e JWTSECRET=${{ secrets.JWTSECRET }} --name be18Container ${{ secrets.DOCKERHUB_USERNAME }}/be18-images:latest
+            docker run -d -p 80:80 --env DBUSER=${{ secrets.DBUSER }} --env DBPASS=${{ secrets.DBPASS }} --env DBHOST=${{ secrets.DBHOST }} --env DBPORT=${{ secrets.DBPORT }} --env DBNAME=${{ secrets.DBNAME }} --env JWTSECRET=${{ secrets.JWTSECRET }} --name be18Container ${{ secrets.DOCKERHUB_USERNAME }}/be18-images:latest
