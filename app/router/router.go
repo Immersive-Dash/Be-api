@@ -2,19 +2,28 @@ package router
 
 import (
 	"Immersive_dash/app/middlewares"
-	"Immersive_dash/features/user/data"
-	"Immersive_dash/features/user/handler"
-	"Immersive_dash/features/user/service"
+	menteeD "Immersive_dash/features/mentee/data"
+	menteeH "Immersive_dash/features/mentee/handler"
+	menteeS "Immersive_dash/features/mentee/service"
+	userD "Immersive_dash/features/user/data"
+	userH "Immersive_dash/features/user/handler"
+	userS "Immersive_dash/features/user/service"
 
 	"github.com/labstack/echo/v4"
 	"gorm.io/gorm"
 )
 
 func InitRouter(db *gorm.DB, e *echo.Echo) {
-	userData := data.New(db)
-	userService := service.New(userData)
-	userHandlerAPI := handler.New(userService)
+	userData := userD.New(db)
+	userService := userS.New(userData)
+	userHandlerAPI := userH.New(userService)
+
+	menteeData := menteeD.New(db)
+	menteeService := menteeS.New(menteeData)
+	menteeHandlerAPI := menteeH.New(menteeService)
 
 	e.GET("/users", userHandlerAPI.ReadUser, middlewares.JWTMiddleware())
 	e.POST("/login", userHandlerAPI.Login)
+
+	e.POST("/mentee", menteeHandlerAPI.CreateMentee, middlewares.JWTMiddleware())
 }

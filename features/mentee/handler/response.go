@@ -1,11 +1,8 @@
-package api
+package handler
 
 type MenteeResponse struct {
-	ID       int    `json:"id"`
+	ID       uint   `json:"id"`
 	FullName string `json:"full_name"`
-	NickName string `json:"nick_name"`
 	Email    string `json:"email"`
-	Phone    string `json:"phone"`
+	Phone    int    `json:"phone"`
 	Telegram string `json:"telegram"`
-	Gender   string `json:"gender"`
-}

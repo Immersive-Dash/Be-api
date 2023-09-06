@@ -1,13 +1,16 @@
 package database
 
 import (
-	"Immersive_dash/features/user/data"
+	mentee "Immersive_dash/features/mentee/data"
+	user "Immersive_dash/features/user/data"
 
 	"gorm.io/gorm"
 )
 
 func InitialMigration(db *gorm.DB) {
-	db.AutoMigrate(&data.Team{})
-	db.AutoMigrate(&data.User{})
+	db.AutoMigrate(&user.Team{})
+	db.AutoMigrate(&user.User{})
+	db.AutoMigrate(&mentee.Mentee{})
+	db.AutoMigrate(&mentee.StatusEntity{})
 
 }
