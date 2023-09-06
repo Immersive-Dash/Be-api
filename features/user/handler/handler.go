@@ -2,6 +2,7 @@ package handler
 
 import (
 	"Immersive_dash/app/helpers"
+	"Immersive_dash/app/middlewares"
 	"Immersive_dash/features/user"
 	"fmt"
 	"net/http"
@@ -32,6 +33,7 @@ func (handler *userHandler) ReadUser(c echo.Context) error {
 			FullName: value.FullName,
 			Team:     value.Team.Name,
 			Email:    value.Email,
+			Role:     value.Role,
 		})
 		fmt.Println("data: ", userResponse)
 	}
@@ -60,4 +62,34 @@ func (handler *userHandler) Login(c echo.Context) error {
 		"email": dataLogin.Email,
 	}
 	return c.JSON(http.StatusOK, helpers.WebResponse(http.StatusOK, "success login", response))
+}
+
+func (handler *userHandler) RegisterUser(c echo.Context) error {
+	userInput := new(UserRequest)
+	role := middlewares.ExtractTokenRole(c)
+	if role != "admin" {
+		return c.JSON(http.StatusForbidden, "forbiden access")
+	}
+	errBind := c.Bind(&userInput) // mendapatkan data yang dikirim oleh FE melalui request body
+	if errBind != nil {
+		return c.JSON(http.StatusBadRequest, helpers.WebResponse(http.StatusBadRequest, "error bind data. data not valid", nil))
+	}
+	//mapping dari struct request to struct core
+	userCore := RequestToCore(*userInput)
+	result, err := handler.userService.CreateUser(userCore)
+	if err != nil {
+		if strings.Contains(err.Error(), "validation") {
+			return c.JSON(http.StatusBadRequest, helpers.WebResponse(http.StatusBadRequest, err.Error(), nil))
+		} else {
+			return c.JSON(http.StatusInternalServerError, helpers.WebResponse(http.StatusInternalServerError, "error insert data", nil))
+		}
+	}
+
+	registerResponse := UserRegisterResponse{
+		ID:       result.ID,
+		FullName: result.FullName,
+		Role:     result.Role,
+		Email:    result.Email,
+	}
+	return c.JSON(http.StatusCreated, helpers.WebResponse(http.StatusCreated, "success insert data", registerResponse))
 }
