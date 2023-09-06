@@ -8,14 +8,14 @@ import (
 
 type Mentee struct {
 	gorm.Model
-	FullName        string
-	NickName        string
-	Email           string `gorm:"unique"`
-	Phone           int    `gorm:"unique"`
-	CurrentAddress  string
-	HomeAddress     string
-	Telegram        string `gorm:"unique"`
-	ClassID         uint
+	FullName       string
+	NickName       string
+	Email          string `gorm:"unique"`
+	Phone          string `gorm:"unique"`
+	CurrentAddress string
+	HomeAddress    string
+	Telegram       string `gorm:"unique"`
+	//ClassID         uint
 	StatusID        uint
 	Gender          string
 	EducationType   string
@@ -23,7 +23,7 @@ type Mentee struct {
 	Graduate        string
 	Institution     string
 	EmergencyName   string `gorm:"unique"`
-	EmergencyPhone  int    `gorm:"unique"`
+	EmergencyPhone  string `gorm:"unique"`
 	EmergencyStatus string `gorm:"unique"`
 	Status          StatusEntity
 }
@@ -36,14 +36,14 @@ type StatusEntity struct {
 
 func CoreToModel(coreMentee mentee.Core) Mentee {
 	modelMentee := Mentee{
-		FullName:        coreMentee.FullName,
-		NickName:        coreMentee.NickName,
-		Email:           coreMentee.Email,
-		Phone:           coreMentee.Phone,
-		CurrentAddress:  coreMentee.CurrentAddress,
-		HomeAddress:     coreMentee.HomeAddress,
-		Telegram:        coreMentee.Telegram,
-		ClassID:         coreMentee.ClassID,
+		FullName:       coreMentee.FullName,
+		NickName:       coreMentee.NickName,
+		Email:          coreMentee.Email,
+		Phone:          coreMentee.Phone,
+		CurrentAddress: coreMentee.CurrentAddress,
+		HomeAddress:    coreMentee.HomeAddress,
+		Telegram:       coreMentee.Telegram,
+		//ClassID:         coreMentee.ClassID,
 		StatusID:        coreMentee.StatusID,
 		Gender:          coreMentee.Gender,
 		EducationType:   coreMentee.EducationType,
@@ -60,18 +60,18 @@ func CoreToModel(coreMentee mentee.Core) Mentee {
 
 func ModelToCore(modelMentee Mentee) mentee.Core {
 	coreMentee := mentee.Core{
-		ID:              modelMentee.ID,
-		Created_At:      modelMentee.CreatedAt,
-		Updated_At:      modelMentee.UpdatedAt,
-		FullName:        modelMentee.FullName,
-		NickName:        modelMentee.NickName,
-		Email:           modelMentee.Email,
-		Phone:           modelMentee.Phone,
-		CurrentAddress:  modelMentee.CurrentAddress,
-		HomeAddress:     modelMentee.HomeAddress,
-		Telegram:        modelMentee.Telegram,
-		ClassID:         modelMentee.ClassID,
-		StatusID:        modelMentee.StatusID,
+		ID:             modelMentee.ID,
+		Created_At:     modelMentee.CreatedAt,
+		Updated_At:     modelMentee.UpdatedAt,
+		FullName:       modelMentee.FullName,
+		NickName:       modelMentee.NickName,
+		Email:          modelMentee.Email,
+		Phone:          modelMentee.Phone,
+		CurrentAddress: modelMentee.CurrentAddress,
+		HomeAddress:    modelMentee.HomeAddress,
+		Telegram:       modelMentee.Telegram,
+		//ClassID:         modelMentee.ClassID,
+		//StatusID:        modelMentee.StatusID,
 		Gender:          modelMentee.Gender,
 		EducationType:   modelMentee.EducationType,
 		Major:           modelMentee.Major,
