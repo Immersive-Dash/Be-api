@@ -16,6 +16,9 @@ type userService struct {
 func (service *userService) CreateUser(input user.Core) (user.Core, error) {
 	// panic("unimplemented")
 	result, err := service.userData.Register(input)
+	if err != nil {
+		return user.Core{}, err
+	}
 	return result, err
 }
 
@@ -28,6 +31,9 @@ func (service *userService) DeleteUserById(id uint) error {
 func (service *userService) GetUser() ([]user.Core, error) {
 	// panic("unimplemented")
 	result, err := service.userData.Read()
+	if err != nil {
+		return []user.Core{}, err
+	}
 	return result, err
 }
 
@@ -51,8 +57,13 @@ func (service *userService) ReadUserById(id uint) (user.Core, error) {
 }
 
 // UpdateUser implements user.UserServiceInterface.
-func (service *userService) UpdateUser(input user.Core) error {
-	panic("unimplemented")
+func (service *userService) UpdateUser(input user.Core) (user.Core, error) {
+	// panic("unimplemented")
+	result, err := service.userData.Update(input)
+	if err != nil {
+		return user.Core{}, err
+	}
+	return result, nil
 }
 
 // UpdateUserById implements user.UserServiceInterface.

@@ -73,8 +73,14 @@ func (repo *userQuery) Register(input user.Core) (user.Core, error) {
 }
 
 // Update implements user.UserDataInterface.
-func (repo *userQuery) Update(input user.Core) error {
-	panic("unimplemented")
+func (repo *userQuery) Update(input user.Core) (user.Core, error) {
+	// panic("unimplemented")
+	userGorm := UserCoreToModel(input)
+	tx := repo.db.Model(&User{}).Where("id = ?", userGorm.ID).Updates(userGorm)
+	if tx.Error != nil {
+		return user.Core{}, tx.Error
+	}
+	return UserModelToCore(userGorm), nil
 }
 
 // UpdateById implements user.UserDataInterface.

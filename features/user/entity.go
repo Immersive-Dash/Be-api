@@ -19,7 +19,7 @@ type UserDataInterface interface {
 	Register(input Core) (Core, error)
 	Login(email string, password string) (dataLogin Core, err error)
 	Read() ([]Core, error)
-	Update(input Core) error
+	Update(input Core) (Core, error)
 	ReadById(id uint) (Core, error)
 	DeleteById(id uint) error
 	UpdateById(id uint, input Core) error
@@ -29,7 +29,7 @@ type UserServiceInterface interface {
 	CreateUser(input Core) (Core, error)
 	LoginUser(email string, password string) (dataLogin Core, token string, err error)
 	GetUser() ([]Core, error)
-	UpdateUser(input Core) error
+	UpdateUser(input Core) (Core, error)
 	ReadUserById(id uint) (Core, error)
 	DeleteUserById(id uint) error
 	UpdateUserById(id uint, input Core) error
