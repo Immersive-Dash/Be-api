@@ -5,6 +5,7 @@ type Core struct {
 	FullName string
 	TeamID   uint
 	Team     TeamCore
+	Password string
 	Email    string
 	Role     string
 }
