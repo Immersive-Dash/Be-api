@@ -5,6 +5,7 @@ type UserResponse struct {
 	FullName string `json:"full_name"`
 	Team     string `json:"team"`
 	Email    string `json:"email"`
+	Role     string `json:"role"`
 }
 
 type UserRegisterResponse struct {
