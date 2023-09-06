@@ -29,4 +29,6 @@ func InitRouter(db *gorm.DB, e *echo.Echo) {
 
 	// Mentee Endpoint
 	e.POST("/mentees", menteeHandlerAPI.CreateMentee, middlewares.JWTMiddleware())
+
+	// Class Endpoint
 }
