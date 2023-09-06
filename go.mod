@@ -7,7 +7,11 @@ require (
 	github.com/labstack/echo-jwt/v4 v4.2.0
 )
 
-require github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
+	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
+	github.com/go-playground/validator/v10 v10.15.3 // indirect
+)
 
 require (
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
