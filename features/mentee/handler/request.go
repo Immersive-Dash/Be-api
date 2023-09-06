@@ -1,4 +1,3 @@
-
 package handler
 
 import "Immersive_dash/features/mentee"
@@ -41,4 +40,4 @@ func RequestToCore(input MenteeRequest) mentee.Core {
 		Institution:     input.Institution,
 		Graduate:        input.Graduate,
 	}
-
+}

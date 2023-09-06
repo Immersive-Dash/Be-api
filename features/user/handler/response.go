@@ -6,3 +6,10 @@ type UserResponse struct {
 	Team     string `json:"team"`
 	Email    string `json:"email"`
 }
+
+type UserRegisterResponse struct {
+	ID       uint   `json:"id"`
+	FullName string `json:"full_name"`
+	Role     string `json:"role"`
+	Email    string `json:"email"`
+}

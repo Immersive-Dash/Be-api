@@ -16,7 +16,7 @@ type TeamCore struct {
 }
 
 type UserDataInterface interface {
-	Register(input Core) error
+	Register(input Core) (Core, error)
 	Login(email string, password string) (dataLogin Core, err error)
 	Read() ([]Core, error)
 	Update(input Core) error
@@ -26,7 +26,7 @@ type UserDataInterface interface {
 }
 
 type UserServiceInterface interface {
-	CreateUser(input Core) error
+	CreateUser(input Core) (Core, error)
 	LoginUser(email string, password string) (dataLogin Core, token string, err error)
 	GetUser() ([]Core, error)
 	UpdateUser(input Core) error
