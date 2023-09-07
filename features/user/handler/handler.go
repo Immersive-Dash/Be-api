@@ -65,11 +65,11 @@ func (handler *userHandler) Login(c echo.Context) error {
 
 func (handler *userHandler) RegisterUser(c echo.Context) error {
 	userInput := new(UserRequest)
+	errBind := c.Bind(&userInput)
 	role := middlewares.ExtractTokenRole(c)
 	if role != "admin" {
 		return c.JSON(http.StatusForbidden, helpers.WebResponse(http.StatusForbidden, "access denied", nil))
 	}
-	errBind := c.Bind(&userInput) // mendapatkan data yang dikirim oleh FE melalui request body
 	if errBind != nil {
 		return c.JSON(http.StatusBadRequest, helpers.WebResponse(http.StatusBadRequest, "error bind data. data not valid", nil))
 	}
@@ -95,7 +95,7 @@ func (handler *userHandler) RegisterUser(c echo.Context) error {
 
 func (handler *userHandler) UpdateUser(c echo.Context) error { // update user yang login
 	role := middlewares.ExtractTokenRole(c)
-	// userID := middlewares.ExtractTokenUserId(c)
+	userID := middlewares.ExtractTokenUserId(c)
 	userInput := new(UserUpdateRequest)
 	errBind := c.Bind(&userInput)
 	if errBind != nil {
@@ -111,8 +111,9 @@ func (handler *userHandler) UpdateUser(c echo.Context) error { // update user ya
 		}
 	}
 	updateResponse := UserResponse{
-		ID:       result.ID,
+		ID:       uint(userID),
 		FullName: result.FullName,
+		Team:     result.Team.Name,
 		Email:    result.Email,
 		Role:     role,
 	}

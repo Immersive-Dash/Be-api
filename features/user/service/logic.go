@@ -44,7 +44,7 @@ func (service *userService) LoginUser(email string, password string) (dataLogin 
 	if err != nil {
 		return user.Core{}, "", err
 	}
-	token, err = middlewares.CreateToken(dataLogin.Role)
+	token, err = middlewares.CreateToken(dataLogin.Role, dataLogin.ID)
 	if err != nil {
 		return user.Core{}, "", err
 	}
