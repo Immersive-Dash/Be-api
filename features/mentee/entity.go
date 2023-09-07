@@ -40,6 +40,7 @@ type MenteeDataInterface interface {
 	Delete(id uint) error
 	SelectById(id uint) (Core, error)
 	Update(data Core) error
+	Select() ([]Core, error)
 }
 
 type MenteeServiceInterface interface {
@@ -47,4 +48,5 @@ type MenteeServiceInterface interface {
 	Delete(id uint) error
 	GetById(id uint) (Core, error)
 	Update(id uint, newData Core) error
+	GetAll() ([]Core, error)
 }
