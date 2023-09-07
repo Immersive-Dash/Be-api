@@ -15,7 +15,7 @@ type Core struct {
 	HomeAddress    string
 	Telegram       string
 	//ClassID         uint
-	StatusID        uint
+	//StatusID        uint
 	Gender          string
 	EducationType   string
 	Major           string
@@ -24,17 +24,16 @@ type Core struct {
 	EmergencyName   string
 	EmergencyPhone  string
 	EmergencyStatus string
-	Status          StatusEntity
+	Status          string
 }
 
-type StatusEntity struct {
-	ID          uint
-	Name        string
-	Description string
-	CreatedAt   time.Time
-	UpdatedAt   time.Time
-	DeletedAt   time.Time
-}
+// type StatusEntity struct {
+// 	ID        uint
+// 	Name      string
+// 	CreatedAt time.Time
+// 	UpdatedAt time.Time
+// 	DeletedAt time.Time
+// }
 
 type MenteeDataInterface interface {
 	Insert(input Core) error

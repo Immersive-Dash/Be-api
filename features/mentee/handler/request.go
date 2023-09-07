@@ -3,7 +3,7 @@ package handler
 import "Immersive_dash/features/mentee"
 
 type MenteeRequest struct {
-	StatusID uint `json:"status_id,omitempty" form:"status_id"`
+	//StatusID uint `json:"status_id,omitempty" form:"status_id"`
 	//ClassID         uint   `json:"class_id,omitempty" form:"class_id"`
 	FullName        string `json:"full_name,omitempty" form:"full_name"`
 	NickName        string `json:"nick_name,omitempty" form:"nick_name"`
@@ -20,11 +20,12 @@ type MenteeRequest struct {
 	Major           string `json:"major,omitempty" form:"major"`
 	Institution     string `json:"institution,omitempty" form:"institution"`
 	Graduate        string `json:"graduate,omitempty" form:"graduate"`
+	Status          string `json:"status,omitempty" form:"status"`
 }
 
 func RequestToCore(input MenteeRequest) mentee.Core {
 	return mentee.Core{
-		StatusID: input.StatusID,
+		//StatusID: input.StatusID,
 		//ClassID:         input.ClassID,
 		FullName:        input.FullName,
 		NickName:        input.NickName,
@@ -41,5 +42,6 @@ func RequestToCore(input MenteeRequest) mentee.Core {
 		Major:           input.Major,
 		Institution:     input.Institution,
 		Graduate:        input.Graduate,
+		Status:          input.Status,
 	}
 }
