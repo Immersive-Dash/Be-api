@@ -25,14 +25,13 @@ type Mentee struct {
 	EmergencyName   string `gorm:"unique"`
 	EmergencyPhone  string `gorm:"unique"`
 	EmergencyStatus string `gorm:"unique"`
-	Status          StatusEntity
+	Status          string
 }
 
-type StatusEntity struct {
-	gorm.Model
-	Name        string
-	Description string
-}
+// type StatusEntity struct {
+// 	gorm.Model
+// 	Name        string
+// }
 
 func CoreToModel(coreMentee mentee.Core) Mentee {
 	modelMentee := Mentee{
@@ -44,7 +43,7 @@ func CoreToModel(coreMentee mentee.Core) Mentee {
 		HomeAddress:    coreMentee.HomeAddress,
 		Telegram:       coreMentee.Telegram,
 		//ClassID:         coreMentee.ClassID,
-		StatusID:        coreMentee.StatusID,
+		//StatusID:        coreMentee.StatusID,
 		Gender:          coreMentee.Gender,
 		EducationType:   coreMentee.EducationType,
 		Major:           coreMentee.Major,
@@ -53,6 +52,7 @@ func CoreToModel(coreMentee mentee.Core) Mentee {
 		EmergencyName:   coreMentee.EmergencyName,
 		EmergencyPhone:  coreMentee.EmergencyPhone,
 		EmergencyStatus: coreMentee.EmergencyStatus,
+		Status:          coreMentee.Status,
 	}
 
 	return modelMentee
