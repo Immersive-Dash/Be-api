@@ -8,7 +8,8 @@ import (
 )
 
 type userQuery struct {
-	db *gorm.DB
+	db        *gorm.DB
+	dataLogin user.Core
 }
 
 // DeleteById implements user.UserDataInterface.
@@ -28,6 +29,7 @@ func (repo *userQuery) Login(email string, password string) (dataLogin user.Core
 		return user.Core{}, errors.New("data not found")
 	}
 	dataLogin = UserModelToCore(data)
+	repo.dataLogin = dataLogin
 	return dataLogin, nil
 }
 
@@ -76,7 +78,7 @@ func (repo *userQuery) Register(input user.Core) (user.Core, error) {
 func (repo *userQuery) Update(input user.Core) (user.Core, error) {
 	// panic("unimplemented")
 	userGorm := UserCoreToModel(input)
-	tx := repo.db.Model(&User{}).Where("id = ?", userGorm.ID).Updates(userGorm)
+	tx := repo.db.Model(&User{}).Where("id = ?", repo.dataLogin.ID).Updates(userGorm)
 	if tx.Error != nil {
 		return user.Core{}, tx.Error
 	}
