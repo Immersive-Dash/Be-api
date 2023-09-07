@@ -14,10 +14,14 @@ type userQuery struct {
 
 // DeleteById implements user.UserDataInterface.
 func (repo *userQuery) DeleteById(id uint) error {
-	panic("unimplemented")
+	var userGorm User
+	tx := repo.db.Where("id = ?", id).Delete(&userGorm)
+	if tx.Error != nil {
+		return tx.Error
+	}
+	return nil
 }
 
-// Login implements user.UserDataInterface.
 func (repo *userQuery) Login(email string, password string) (dataLogin user.Core, err error) {
 	// panic("unimplemented")
 	var data User
@@ -60,7 +64,17 @@ func (repo *userQuery) Read() ([]user.Core, error) {
 
 // ReadById implements user.UserDataInterface.
 func (repo *userQuery) ReadById(id uint) (user.Core, error) {
-	panic("unimplemented")
+	// panic("unimplemented")
+	var userData User
+	tx := repo.db.Where("id = ?", id).Find(&userData)
+	if tx.Error != nil {
+		return user.Core{}, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return user.Core{}, errors.New("data not found")
+	}
+
+	return UserModelToCore(userData), nil
 }
 
 // Register implements user.UserDataInterface.
@@ -86,8 +100,14 @@ func (repo *userQuery) Update(input user.Core) (user.Core, error) {
 }
 
 // UpdateById implements user.UserDataInterface.
-func (repo *userQuery) UpdateById(id uint, input user.Core) error {
-	panic("unimplemented")
+func (repo *userQuery) UpdateById(id uint, input user.Core) (user.Core, error) {
+	// panic("unimplemented")
+	userGorm := UserCoreToModel(input)
+	tx := repo.db.Model(&User{}).Where("id = ?", id).Updates(userGorm)
+	if tx.Error != nil {
+		return user.Core{}, tx.Error
+	}
+	return UserModelToCore(userGorm), nil
 }
 
 func New(db *gorm.DB) user.UserDataInterface {
