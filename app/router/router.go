@@ -43,6 +43,7 @@ func InitRouter(db *gorm.DB, e *echo.Echo) {
 	e.DELETE("/mentees/:id_mentee", menteeHandlerAPI.DeleteMenteeByID, middlewares.JWTMiddleware())
 	e.GET("/mentees/:id_mentee", menteeHandlerAPI.GetMenteeByID, middlewares.JWTMiddleware())
 	e.PUT("/mentees/:id_mentee", menteeHandlerAPI.UpdateMentee, middlewares.JWTMiddleware())
+	e.GET("/mentees", menteeHandlerAPI.ReadMentee, middlewares.JWTMiddleware())
 
 	//Feedback endpoint
 	e.POST("/feedback", feedbackHandlerAPI.CreateFeedback, middlewares.JWTMiddleware())
