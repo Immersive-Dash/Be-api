@@ -22,7 +22,7 @@ type UserDataInterface interface {
 	Update(input Core) (Core, error)
 	ReadById(id uint) (Core, error)
 	DeleteById(id uint) error
-	UpdateById(id uint, input Core) error
+	UpdateById(id uint, input Core) (Core, error)
 }
 
 type UserServiceInterface interface {
@@ -32,5 +32,5 @@ type UserServiceInterface interface {
 	UpdateUser(input Core) (Core, error)
 	ReadUserById(id uint) (Core, error)
 	DeleteUserById(id uint) error
-	UpdateUserById(id uint, input Core) error
+	UpdateUserById(id uint, input Core) (Core, error)
 }

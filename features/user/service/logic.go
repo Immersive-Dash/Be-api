@@ -24,7 +24,9 @@ func (service *userService) CreateUser(input user.Core) (user.Core, error) {
 
 // DeleteUserById implements user.UserServiceInterface.
 func (service *userService) DeleteUserById(id uint) error {
-	panic("unimplemented")
+	// panic("unimplemented")
+	err := service.userData.DeleteById(id)
+	return err
 }
 
 // GetUser implements user.UserServiceInterface.
@@ -53,7 +55,12 @@ func (service *userService) LoginUser(email string, password string) (dataLogin 
 
 // ReadUserById implements user.UserServiceInterface.
 func (service *userService) ReadUserById(id uint) (user.Core, error) {
-	panic("unimplemented")
+	// panic("unimplemented")
+	result, err := service.userData.ReadById(id)
+	if err != nil {
+		return user.Core{}, err
+	}
+	return result, nil
 }
 
 // UpdateUser implements user.UserServiceInterface.
@@ -67,8 +74,13 @@ func (service *userService) UpdateUser(input user.Core) (user.Core, error) {
 }
 
 // UpdateUserById implements user.UserServiceInterface.
-func (service *userService) UpdateUserById(id uint, input user.Core) error {
-	panic("unimplemented")
+func (service *userService) UpdateUserById(id uint, input user.Core) (user.Core, error) {
+	// panic("unimplemented")
+	result, err := service.userData.UpdateById(id, input)
+	if err != nil {
+		return user.Core{}, err
+	}
+	return result, nil
 }
 
 func New(repo user.UserDataInterface) user.UserServiceInterface {

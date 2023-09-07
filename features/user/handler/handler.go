@@ -5,6 +5,7 @@ import (
 	"Immersive_dash/app/middlewares"
 	"Immersive_dash/features/user"
 	"net/http"
+	"strconv"
 	"strings"
 
 	"github.com/labstack/echo/v4"
@@ -112,6 +113,80 @@ func (handler *userHandler) UpdateUser(c echo.Context) error { // update user ya
 	}
 	updateResponse := UserResponse{
 		ID:       uint(userID),
+		FullName: result.FullName,
+		Team:     result.Team.Name,
+		Email:    result.Email,
+		Role:     role,
+	}
+	return c.JSON(http.StatusOK, helpers.WebResponse(http.StatusOK, "success update data", updateResponse))
+}
+
+func (handler *userHandler) DeleteUser(c echo.Context) error {
+	id := c.Param("id_user")
+	role := middlewares.ExtractTokenRole(c)
+	if role != "admin" {
+		return c.JSON(http.StatusForbidden, helpers.WebResponse(http.StatusForbidden, "access denied", nil))
+	}
+	idConv, errConv := strconv.Atoi(id)
+	if errConv != nil {
+		return c.JSON(http.StatusBadRequest, helpers.WebResponse(http.StatusBadRequest, "error id not valid", nil))
+	}
+	err := handler.userService.DeleteUserById(uint(idConv))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, helpers.WebResponse(http.StatusInternalServerError, "error delete data", nil))
+	}
+	return c.JSON(http.StatusOK, helpers.WebResponse(http.StatusOK, "success delete data", nil))
+
+}
+
+func (handler *userHandler) GetUserById(c echo.Context) error {
+	id := c.Param("id_user")
+	role := middlewares.ExtractTokenRole(c)
+	idConv, errConv := strconv.Atoi(id)
+	if errConv != nil {
+		return c.JSON(http.StatusBadRequest, helpers.WebResponse(http.StatusBadRequest, "error id not valid", nil))
+	}
+
+	result, err := handler.userService.ReadUserById(uint(idConv))
+	if err != nil {
+
+		return c.JSON(http.StatusNotFound, helpers.WebResponse(http.StatusNotFound, "data not found", nil))
+	}
+	// mapping dari struct core to struct response
+	resultResponse := UserResponse{
+		ID:       result.ID,
+		FullName: result.FullName,
+		Team:     result.Team.Name,
+		Email:    result.Email,
+		Role:     role,
+	}
+	return c.JSON(http.StatusOK, helpers.WebResponse(http.StatusOK, "success read data", resultResponse))
+}
+
+func (handler *userHandler) UpdateById(c echo.Context) error {
+	userInput := new(UserRequest)
+	role := middlewares.ExtractTokenRole(c)
+	id := c.Param("id_user")
+	idParam, errConv := strconv.Atoi(id)
+	if errConv != nil {
+		return c.JSON(http.StatusBadRequest, helpers.WebResponse(http.StatusBadRequest, "error data id. data not valid", nil))
+	}
+	errBind := c.Bind(&userInput) // mendapatkan data yang dikirim oleh FE melalui request body
+	if errBind != nil {
+		return c.JSON(http.StatusBadRequest, helpers.WebResponse(http.StatusBadRequest, "error bind data. data not valid", nil))
+	}
+	userCore := RequestToCore(*userInput)
+	result, err := handler.userService.UpdateUserById(uint(idParam), userCore)
+	if err != nil {
+		if strings.Contains(err.Error(), "validation") {
+			return c.JSON(http.StatusBadRequest, helpers.WebResponse(http.StatusBadRequest, err.Error(), nil))
+		} else {
+			return c.JSON(http.StatusInternalServerError, helpers.WebResponse(http.StatusInternalServerError, "error insert data", nil))
+		}
+	}
+
+	updateResponse := UserResponse{
+		ID:       uint(idParam),
 		FullName: result.FullName,
 		Team:     result.Team.Name,
 		Email:    result.Email,
