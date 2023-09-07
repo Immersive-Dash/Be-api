@@ -11,6 +11,39 @@ type menteeQuery struct {
 	db *gorm.DB
 }
 
+// Select implements mentee.MenteeDataInterface.
+func (repo *menteeQuery) Select() ([]mentee.Core, error) {
+	// panic("unimplemented")
+	var menteesData []Mentee
+	tx := repo.db.Preload("Class").Find(&menteesData)
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+	var menteesCore []mentee.Core
+	for _, value := range menteesData {
+		menteesCore = append(menteesCore, mentee.Core{
+			ID:              value.ID,
+			FullName:        value.FullName,
+			NickName:        value.NickName,
+			Email:           value.Email,
+			Phone:           value.Phone,
+			CurrentAddress:  value.CurrentAddress,
+			HomeAddress:     value.HomeAddress,
+			Telegram:        value.Telegram,
+			Gender:          value.Gender,
+			EducationType:   value.EducationType,
+			Major:           value.Major,
+			Graduate:        value.Graduate,
+			Institution:     value.Institution,
+			EmergencyName:   value.EmergencyName,
+			EmergencyPhone:  value.EmergencyPhone,
+			EmergencyStatus: value.EmergencyStatus,
+			Status:          value.Status,
+		})
+	}
+	return menteesCore, nil
+}
+
 func New(db *gorm.DB) mentee.MenteeDataInterface {
 	return &menteeQuery{
 		db: db,

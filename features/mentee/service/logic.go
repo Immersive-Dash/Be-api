@@ -12,6 +12,13 @@ type menteeService struct {
 	validate   *validator.Validate
 }
 
+// GetAll implements mentee.MenteeServiceInterface.
+func (service *menteeService) GetAll() ([]mentee.Core, error) {
+	// panic("unimplemented")
+	result, err := service.menteeData.Select()
+	return result, err
+}
+
 func New(repo mentee.MenteeDataInterface) mentee.MenteeServiceInterface {
 	return &menteeService{
 		menteeData: repo,

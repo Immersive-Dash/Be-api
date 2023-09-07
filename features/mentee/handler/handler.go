@@ -121,3 +121,22 @@ func (handler *MenteeHandler) UpdateMentee(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, helpers.WebResponse(http.StatusOK, "Success update mentee data", nil))
 }
+
+func (handler *MenteeHandler) ReadMentee(c echo.Context) error {
+	result, err := handler.menteeService.GetAll()
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, helpers.WebResponse(http.StatusInternalServerError, "error read data", nil))
+	}
+	var menteeResponse []MenteeResponse
+	for _, value := range result {
+		menteeResponse = append(menteeResponse, MenteeResponse{
+			ID:       value.ID,
+			FullName: value.FullName,
+			Email:    value.Email,
+			Phone:    value.Phone,
+			Telegram: value.Telegram,
+		})
+		// fmt.Println("data: ", userResponse)
+	}
+	return c.JSON(http.StatusOK, helpers.WebResponse(http.StatusOK, "success read data", menteeResponse))
+}

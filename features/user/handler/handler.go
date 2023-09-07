@@ -141,7 +141,6 @@ func (handler *userHandler) DeleteUser(c echo.Context) error {
 
 func (handler *userHandler) GetUserById(c echo.Context) error {
 	id := c.Param("id_user")
-	role := middlewares.ExtractTokenRole(c)
 	idConv, errConv := strconv.Atoi(id)
 	if errConv != nil {
 		return c.JSON(http.StatusBadRequest, helpers.WebResponse(http.StatusBadRequest, "error id not valid", nil))
@@ -158,7 +157,7 @@ func (handler *userHandler) GetUserById(c echo.Context) error {
 		FullName: result.FullName,
 		Team:     result.Team.Name,
 		Email:    result.Email,
-		Role:     role,
+		Role:     result.Role,
 	}
 	return c.JSON(http.StatusOK, helpers.WebResponse(http.StatusOK, "success read data", resultResponse))
 }
