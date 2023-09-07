@@ -14,7 +14,8 @@ type Core struct {
 	CurrentAddress string
 	HomeAddress    string
 	Telegram       string
-	//ClassID         uint
+	ClassID        uint
+	Class          ClassCore
 	//StatusID        uint
 	Gender          string
 	EducationType   string
@@ -25,6 +26,11 @@ type Core struct {
 	EmergencyPhone  string
 	EmergencyStatus string
 	Status          string
+}
+
+type ClassCore struct {
+	ID   uint
+	Name string
 }
 
 // type StatusEntity struct {

@@ -130,11 +130,16 @@ func (handler *MenteeHandler) ReadMentee(c echo.Context) error {
 	var menteeResponse []MenteeResponse
 	for _, value := range result {
 		menteeResponse = append(menteeResponse, MenteeResponse{
-			ID:       value.ID,
-			FullName: value.FullName,
-			Email:    value.Email,
-			Phone:    value.Phone,
-			Telegram: value.Telegram,
+			ID:            value.ID,
+			Class:         value.Class.Name,
+			FullName:      value.FullName,
+			NickName:      value.NickName,
+			Status:        value.Status,
+			EducationType: value.EducationType,
+			Gender:        value.Gender,
+			Email:         value.Email,
+			Phone:         value.Phone,
+			Telegram:      value.Telegram,
 		})
 		// fmt.Println("data: ", userResponse)
 	}

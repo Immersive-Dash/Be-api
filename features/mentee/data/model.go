@@ -8,14 +8,15 @@ import (
 
 type Mentee struct {
 	gorm.Model
-	FullName       string
-	NickName       string
-	Email          string `gorm:"unique"`
-	Phone          string `gorm:"unique"`
-	CurrentAddress string
-	HomeAddress    string
-	Telegram       string `gorm:"unique"`
-	//ClassID         uint
+	FullName        string
+	NickName        string
+	Email           string `gorm:"unique"`
+	Phone           string `gorm:"unique"`
+	CurrentAddress  string
+	HomeAddress     string
+	Telegram        string `gorm:"unique"`
+	ClassID         uint
+	Class           Class
 	StatusID        uint
 	Gender          string
 	EducationType   string
@@ -26,6 +27,11 @@ type Mentee struct {
 	EmergencyPhone  string `gorm:"unique"`
 	EmergencyStatus string `gorm:"unique"`
 	Status          string
+}
+
+type Class struct {
+	gorm.Model
+	Name string
 }
 
 // type StatusEntity struct {
