@@ -41,15 +41,16 @@ type Mentee struct {
 
 func CoreToModel(coreMentee mentee.Core) Mentee {
 	modelMentee := Mentee{
-		FullName:       coreMentee.FullName,
-		NickName:       coreMentee.NickName,
-		Email:          coreMentee.Email,
-		Phone:          coreMentee.Phone,
-		CurrentAddress: coreMentee.CurrentAddress,
-		HomeAddress:    coreMentee.HomeAddress,
-		Telegram:       coreMentee.Telegram,
-		//ClassID:         coreMentee.ClassID,
-		//StatusID:        coreMentee.StatusID,
+		Model:           gorm.Model{},
+		FullName:        coreMentee.FullName,
+		NickName:        coreMentee.NickName,
+		Email:           coreMentee.Email,
+		Phone:           coreMentee.Phone,
+		CurrentAddress:  coreMentee.CurrentAddress,
+		HomeAddress:     coreMentee.HomeAddress,
+		Telegram:        coreMentee.Telegram,
+		ClassID:         coreMentee.ClassID,
+		Class:           coreMentee.Class,
 		Gender:          coreMentee.Gender,
 		EducationType:   coreMentee.EducationType,
 		Major:           coreMentee.Major,
@@ -66,18 +67,16 @@ func CoreToModel(coreMentee mentee.Core) Mentee {
 
 func ModelToCore(modelMentee Mentee) mentee.Core {
 	coreMentee := mentee.Core{
-		ID:             modelMentee.ID,
-		Created_At:     modelMentee.CreatedAt,
-		Updated_At:     modelMentee.UpdatedAt,
-		FullName:       modelMentee.FullName,
-		NickName:       modelMentee.NickName,
-		Email:          modelMentee.Email,
-		Phone:          modelMentee.Phone,
-		CurrentAddress: modelMentee.CurrentAddress,
-		HomeAddress:    modelMentee.HomeAddress,
-		Telegram:       modelMentee.Telegram,
-		//ClassID:         modelMentee.ClassID,
-		//StatusID:        modelMentee.StatusID,
+		ID:              modelMentee.ID,
+		FullName:        modelMentee.FullName,
+		NickName:        modelMentee.NickName,
+		Email:           modelMentee.Email,
+		Phone:           modelMentee.Phone,
+		CurrentAddress:  modelMentee.CurrentAddress,
+		HomeAddress:     modelMentee.HomeAddress,
+		Telegram:        modelMentee.Telegram,
+		ClassID:         modelMentee.ClassID,
+		Class:           modelMentee.Class,
 		Gender:          modelMentee.Gender,
 		EducationType:   modelMentee.EducationType,
 		Major:           modelMentee.Major,
@@ -86,6 +85,7 @@ func ModelToCore(modelMentee Mentee) mentee.Core {
 		EmergencyName:   modelMentee.EmergencyName,
 		EmergencyPhone:  modelMentee.EmergencyPhone,
 		EmergencyStatus: modelMentee.EmergencyStatus,
+		Status:          modelMentee.Status,
 	}
 
 	return coreMentee
