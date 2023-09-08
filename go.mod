@@ -11,6 +11,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/gabriel-vasile/mimetype v1.4.2 // indirect
 	github.com/go-playground/validator/v10 v10.15.3 // indirect
+	github.com/mattn/go-sqlite3 v1.14.17 // indirect
 )
 
 require (
@@ -48,5 +49,6 @@ require (
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gorm.io/driver/mysql v1.5.1 // indirect
+	gorm.io/driver/sqlite v1.5.3
 	gorm.io/gorm v1.25.4 // indirect
 )

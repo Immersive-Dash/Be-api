@@ -6,11 +6,28 @@ import (
 	"gorm.io/gorm"
 )
 
+type Class struct {
+	gorm.Model
+	Name          string
+	Start_Date    time.Time
+	Graduate_Date time.Time
+}
+
 type Core struct {
 	ID            uint
 	Name          string
 	Start_Date    time.Time
 	Graduate_Date time.Time
+}
+
+func ModelToCore(model Class) Core {
+	core := Core{
+		ID:            model.ID,
+		Name:          model.Name,
+		Start_Date:    model.Start_Date,
+		Graduate_Date: model.Graduate_Date,
+	}
+	return core
 }
 
 type ClassDataInterface interface {
