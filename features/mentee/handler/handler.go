@@ -22,6 +22,7 @@ func New(service mentee.MenteeServiceInterface) *MenteeHandler {
 }
 
 func (handler *MenteeHandler) CreateMentee(c echo.Context) error {
+
 	input := new(MenteeRequest)
 	if err := c.Bind(input); err != nil {
 		return c.JSON(http.StatusBadRequest, helpers.WebResponse(http.StatusBadRequest, "Invalid request", nil))
@@ -69,22 +70,20 @@ func (handler *MenteeHandler) GetMenteeByID(c echo.Context) error {
 		return c.JSON(http.StatusBadRequest, "Invalid mentee ID")
 	}
 
-	Userid := middlewares.ExtractTokenRole(c)
-	if Userid != "admin" {
-		return c.JSON(http.StatusForbidden, "Forbidden access")
-	}
-
 	result, err := handler.menteeService.GetById(uint(idMentee))
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, "Error getting mentee data")
 	}
 
 	resultResponse := MenteeResponse{
-		ID:       result.ID,
-		FullName: result.FullName,
-		Email:    result.Email,
-		Phone:    result.Phone,
-		Telegram: result.Telegram,
+		ID:             result.ID,
+		FullName:       result.FullName,
+		Email:          result.Email,
+		Phone:          result.Phone,
+		Telegram:       result.Telegram,
+		Gender:         result.Gender,
+		CurrentAddress: result.CurrentAddress,
+		HomeAddress:    result.HomeAddress,
 	}
 
 	return c.JSON(http.StatusOK, helpers.WebResponse(http.StatusOK, "Success get mentee data", resultResponse))

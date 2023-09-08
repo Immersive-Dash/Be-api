@@ -22,9 +22,9 @@ type Mentee struct {
 	Major           string
 	Graduate        string
 	Institution     string
-	EmergencyName   string `gorm:"unique"`
+	EmergencyName   string
 	EmergencyPhone  string `gorm:"unique"`
-	EmergencyStatus string `gorm:"unique"`
+	EmergencyStatus string
 	Status          string
 }
 
