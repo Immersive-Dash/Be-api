@@ -1,6 +1,7 @@
 package data
 
 import (
+	"Immersive_dash/features/class"
 	"time"
 
 	"gorm.io/gorm"
@@ -13,15 +14,21 @@ type Class struct {
 	Graduate_Date time.Time
 }
 
-func (c *Class) Create(db *gorm.DB) error {
-	return db.Create(c).Error
+func CoreToModel(coreClass class.Core) Class {
+	ModelClass := Class{
+		Model:         gorm.Model{},
+		Name:          coreClass.Name,
+		Start_Date:    coreClass.Start_Date,
+		Graduate_Date: coreClass.Graduate_Date,
+	}
+	return ModelClass
 }
 
-func GetClassByID(db *gorm.DB, classID uint) (*Class, error) {
-	var class Class
-	if err := db.First(&class, classID).Error; err != nil {
-		return nil, err
+func ModelToCore(modelClass Class) class.Core {
+	coreClass := class.Core{
+		Name:          modelClass.Name,
+		Start_Date:    modelClass.Start_Date,
+		Graduate_Date: modelClass.Graduate_Date,
 	}
-
-	return &class, nil
+	return coreClass
 }
