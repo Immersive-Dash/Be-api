@@ -17,6 +17,6 @@ type MenteeResponse struct {
 
 type MenteeFeedbackResponse struct {
 	ID        uint            `json:"id_mentee"`
-	Status    string          `json:"status"`
+	Name      string          `json:"name"`
 	Feedbacks []feedback.Core `json:"feedbacks"`
 }

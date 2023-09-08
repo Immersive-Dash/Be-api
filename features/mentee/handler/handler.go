@@ -173,7 +173,7 @@ func (handler *MenteeHandler) GetMenteeFeedback(c echo.Context) error {
 		}
 		menteeFeedback = append(menteeFeedback, MenteeFeedbackResponse{
 			ID:        mentee.ID,
-			Status:    mentee.Status,
+			Name:      mentee.FullName,
 			Feedbacks: feedbacks,
 		})
 	}
