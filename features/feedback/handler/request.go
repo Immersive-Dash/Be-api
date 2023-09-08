@@ -12,8 +12,7 @@ type FeedbackRequest struct {
 
 func RequestToCore(input FeedbackRequest) feedback.Core {
 	return feedback.Core{
-		Notes:    input.Notes,
-		MenteeID: input.MenteeID,
-		Status:   input.Status,
+		Notes:  input.Notes,
+		Status: input.Status,
 	}
 }
