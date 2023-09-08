@@ -31,10 +31,9 @@ func (repo *menteeQuery) SelectMenteeFeedback(id uint) ([]mentee.Core, error) {
 		var feedbacks []_feedback.Core
 		for _, feedback := range value.Feedbacks {
 			feedbacks = append(feedbacks, _feedback.Core{
-				ID:       feedback.ID,
-				Notes:    feedback.Notes,
-				MenteeID: feedback.MenteeID,
-				Status:   feedback.Status,
+				ID:     feedback.ID,
+				Notes:  feedback.Notes,
+				Status: feedback.Status,
 			})
 		}
 
