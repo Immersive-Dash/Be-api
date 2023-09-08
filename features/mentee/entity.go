@@ -1,6 +1,9 @@
 package mentee
 
-import "time"
+import (
+	"Immersive_dash/features/feedback"
+	"time"
+)
 
 type Core struct {
 	ID             uint
@@ -26,6 +29,7 @@ type Core struct {
 	EmergencyPhone  string
 	EmergencyStatus string
 	Status          string
+	Feedbacks       []feedback.Core
 }
 
 // type ClassCore struct {
@@ -47,6 +51,7 @@ type MenteeDataInterface interface {
 	SelectById(id uint) (Core, error)
 	Update(data Core) error
 	Select() ([]Core, error)
+	SelectMenteeFeedback(id uint) ([]Core, error)
 }
 
 type MenteeServiceInterface interface {
@@ -55,4 +60,5 @@ type MenteeServiceInterface interface {
 	GetById(id uint) (Core, error)
 	Update(id uint, newData Core) error
 	GetAll() ([]Core, error)
+	GetMenteeFeedback(id uint) ([]Core, error)
 }

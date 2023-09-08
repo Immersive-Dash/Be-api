@@ -1,6 +1,8 @@
 package data
 
 import (
+	"Immersive_dash/features/feedback"
+	"Immersive_dash/features/feedback/data"
 	"Immersive_dash/features/mentee"
 
 	"gorm.io/gorm"
@@ -27,6 +29,7 @@ type Mentee struct {
 	EmergencyPhone  string `gorm:"unique"`
 	EmergencyStatus string `gorm:"unique"`
 	Status          string
+	Feedbacks       data.Feedback
 }
 
 // type Class struct {
@@ -60,6 +63,11 @@ func CoreToModel(coreMentee mentee.Core) Mentee {
 		EmergencyPhone:  coreMentee.EmergencyPhone,
 		EmergencyStatus: coreMentee.EmergencyStatus,
 		Status:          coreMentee.Status,
+		Feedbacks: data.Feedback{
+			Model:    gorm.Model{},
+			Notes:    coreMentee.Feedbacks.Notes,
+			MenteeID: coreMentee.ID,
+		},
 	}
 
 	return modelMentee
@@ -86,6 +94,12 @@ func ModelToCore(modelMentee Mentee) mentee.Core {
 		EmergencyPhone:  modelMentee.EmergencyPhone,
 		EmergencyStatus: modelMentee.EmergencyStatus,
 		Status:          modelMentee.Status,
+		Feedbacks: feedback.Core{
+			ID:       modelMentee.Feedbacks.ID,
+			Notes:    modelMentee.Feedbacks.Notes,
+			MenteeID: modelMentee.Feedbacks.MenteeID,
+			Status:   modelMentee.Status,
+		},
 	}
 
 	return coreMentee
