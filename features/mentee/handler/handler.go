@@ -165,10 +165,9 @@ func (handler *MenteeHandler) GetMenteeFeedback(c echo.Context) error {
 		var feedbacks []_feedbackCore.Core
 		for _, feedback := range mentee.Feedbacks {
 			feedbacks = append(feedbacks, _feedbackCore.Core{
-				ID:       feedback.ID,
-				Notes:    feedback.Notes,
-				MenteeID: feedback.MenteeID,
-				Status:   feedback.Status,
+				ID:     feedback.ID,
+				Notes:  feedback.Notes,
+				Status: feedback.Status,
 			})
 		}
 		menteeFeedback = append(menteeFeedback, MenteeFeedbackResponse{
