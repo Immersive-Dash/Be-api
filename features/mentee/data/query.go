@@ -1,6 +1,7 @@
 package data
 
 import (
+	_feedback "Immersive_dash/features/feedback"
 	"Immersive_dash/features/mentee"
 	"errors"
 
@@ -9,6 +10,105 @@ import (
 
 type menteeQuery struct {
 	db *gorm.DB
+}
+
+// SelectMenteeFeedback implements mentee.MenteeDataInterface.
+func (repo *menteeQuery) SelectMenteeFeedback(id uint) ([]mentee.Core, error) {
+	// panic("unimplemented")
+	var menteeData []Mentee
+	var tx *gorm.DB
+	//query select
+	tx = repo.db.Where("id = ?", id).Preload("Feedbacks").Find(&menteeData)
+	if tx.Error != nil {
+		return []mentee.Core{}, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return []mentee.Core{}, errors.New("data not found")
+	}
+
+	var menteesCore []mentee.Core
+	for _, value := range menteeData {
+		var feedbacks []_feedback.Core
+		for _, feedback := range value.Feedbacks {
+			feedbacks = append(feedbacks, _feedback.Core{
+				ID:     feedback.ID,
+				Notes:  feedback.Notes,
+				Status: feedback.Status,
+			})
+		}
+
+		var menteeCore = mentee.Core{
+			ID:        value.ID,
+			FullName:  value.FullName,
+			Feedbacks: feedbacks,
+		}
+		menteesCore = append(menteesCore, menteeCore)
+	}
+
+	return menteesCore, nil
+}
+
+// Select implements mentee.MenteeDataInterface.
+func (repo *menteeQuery) Select(class string, status string, category string) ([]mentee.Core, error) {
+	// panic("unimplemented")
+	var menteesData []Mentee
+	var tx *gorm.DB
+
+	//filter by class
+	if class != "" {
+		tx = repo.db.Where("class = ?", class).Find(&menteesData)
+	} else {
+		tx = repo.db.Find(&menteesData)
+	}
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+
+	//filter by status
+	if status != "" {
+		tx = repo.db.Where("status = ?", status).Find(&menteesData)
+	} else {
+		tx = repo.db.Find(&menteesData)
+	}
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+
+	//filter by category
+	if category != "" {
+		tx = repo.db.Where("education_type = ?", category).Find(&menteesData)
+	} else {
+		tx = repo.db.Find(&menteesData)
+	}
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+
+	var menteesCore []mentee.Core
+	for _, value := range menteesData {
+		menteesCore = append(menteesCore, mentee.Core{
+			ID:              value.ID,
+			FullName:        value.FullName,
+			NickName:        value.NickName,
+			Email:           value.Email,
+			Phone:           value.Phone,
+			CurrentAddress:  value.CurrentAddress,
+			HomeAddress:     value.HomeAddress,
+			Telegram:        value.Telegram,
+			ClassID:         value.ClassID,
+			Class:           value.Class,
+			Gender:          value.Gender,
+			EducationType:   value.EducationType,
+			Major:           value.Major,
+			Graduate:        value.Graduate,
+			Institution:     value.Institution,
+			EmergencyName:   value.EmergencyName,
+			EmergencyPhone:  value.EmergencyPhone,
+			EmergencyStatus: value.EmergencyStatus,
+			Status:          value.Status,
+		})
+	}
+	return menteesCore, nil
 }
 
 func New(db *gorm.DB) mentee.MenteeDataInterface {

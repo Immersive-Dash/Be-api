@@ -21,12 +21,10 @@ func UserModelToCore(dataModel User) user.Core {
 		ID:       dataModel.ID,
 		FullName: dataModel.FullName,
 		TeamID:   dataModel.TeamID,
-		Team: user.TeamCore{
-			ID:   dataModel.TeamID,
-			Name: dataModel.Team.Name,
-		},
-		Email: dataModel.Email,
-		Role:  dataModel.Role,
+		Team:     user.TeamCore{ID: dataModel.TeamID, Name: dataModel.Team.Name},
+		Password: dataModel.Password,
+		Email:    dataModel.Email,
+		Role:     dataModel.Role,
 	}
 }
 
@@ -35,11 +33,9 @@ func UserCoreToModel(dataCore user.Core) User {
 		Model:    gorm.Model{},
 		FullName: dataCore.FullName,
 		Email:    dataCore.Email,
+		Password: dataCore.Password,
 		TeamID:   dataCore.TeamID,
-		Team: Team{
-			Model: gorm.Model{},
-			Name:  dataCore.Team.Name,
-		},
-		Role: dataCore.Role,
+		Team:     Team{Model: gorm.Model{}, Name: dataCore.Team.Name},
+		Role:     dataCore.Role,
 	}
 }

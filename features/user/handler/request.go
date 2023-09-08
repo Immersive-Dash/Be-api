@@ -15,6 +15,12 @@ type UserRequest struct {
 	TeamID   int    `json:"id_team"`
 }
 
+type UserUpdateRequest struct {
+	FullName string `json:"full_name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
 func RequestToCore(input UserRequest) user.Core {
 	return user.Core{
 		FullName: input.FullName,
@@ -22,6 +28,14 @@ func RequestToCore(input UserRequest) user.Core {
 		Password: input.Password,
 		Email:    input.Email,
 		Role:     input.Role,
+	}
+}
+
+func UpdateRequestToCore(input UserUpdateRequest) user.Core {
+	return user.Core{
+		FullName: input.FullName,
+		Password: input.Password,
+		Email:    input.Email,
 	}
 
 }
