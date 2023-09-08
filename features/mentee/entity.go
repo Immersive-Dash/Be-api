@@ -50,7 +50,7 @@ type MenteeDataInterface interface {
 	Delete(id uint) error
 	SelectById(id uint) (Core, error)
 	Update(data Core) error
-	Select() ([]Core, error)
+	Select(class string, status string, category string) ([]Core, error)
 	SelectMenteeFeedback(id uint) ([]Core, error)
 }
 
@@ -59,6 +59,6 @@ type MenteeServiceInterface interface {
 	Delete(id uint) error
 	GetById(id uint) (Core, error)
 	Update(id uint, newData Core) error
-	GetAll() ([]Core, error)
+	GetAll(class string, status string, category string) ([]Core, error)
 	GetMenteeFeedback(id uint) ([]Core, error)
 }

@@ -124,7 +124,12 @@ func (handler *MenteeHandler) UpdateMentee(c echo.Context) error {
 }
 
 func (handler *MenteeHandler) ReadMentee(c echo.Context) error {
-	result, err := handler.menteeService.GetAll()
+
+	classQuery := c.QueryParam("class")
+	statusQuery := c.QueryParam("status")
+	categoryQuery := c.QueryParam("education_type")
+
+	result, err := handler.menteeService.GetAll(classQuery, statusQuery, categoryQuery)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, helpers.WebResponse(http.StatusInternalServerError, "error read data", nil))
 	}
