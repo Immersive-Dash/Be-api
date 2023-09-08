@@ -76,7 +76,7 @@ func (repo *menteeQuery) Select(class string, status string, category string) ([
 
 	//filter by category
 	if category != "" {
-		tx = repo.db.Where("education_type <> ?", category).Find(&menteesData)
+		tx = repo.db.Where("education_type = ?", category).Find(&menteesData)
 	} else {
 		tx = repo.db.Find(&menteesData)
 	}
