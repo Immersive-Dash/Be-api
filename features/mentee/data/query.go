@@ -1,6 +1,7 @@
 package data
 
 import (
+	_feedback "Immersive_dash/features/feedback"
 	"Immersive_dash/features/mentee"
 	"errors"
 
@@ -9,6 +10,43 @@ import (
 
 type menteeQuery struct {
 	db *gorm.DB
+}
+
+// SelectMenteeFeedback implements mentee.MenteeDataInterface.
+func (repo *menteeQuery) SelectMenteeFeedback(id uint) ([]mentee.Core, error) {
+	// panic("unimplemented")
+	var menteeData []Mentee
+	var tx *gorm.DB
+	//query select
+	tx = repo.db.Where("id = ?", id).Preload("Feedbacks").Find(&menteeData)
+	if tx.Error != nil {
+		return []mentee.Core{}, tx.Error
+	}
+	if tx.RowsAffected == 0 {
+		return []mentee.Core{}, errors.New("data not found")
+	}
+
+	var menteesCore []mentee.Core
+	for _, value := range menteeData {
+		var feedbacks []_feedback.Core
+		for _, feedback := range value.Feedbacks {
+			feedbacks = append(feedbacks, _feedback.Core{
+				ID:       feedback.ID,
+				Notes:    feedback.Notes,
+				MenteeID: feedback.MenteeID,
+				Status:   feedback.Status,
+			})
+		}
+
+		var menteeCore = mentee.Core{
+			ID:        value.ID,
+			FullName:  value.FullName,
+			Feedbacks: feedbacks,
+		}
+		menteesCore = append(menteesCore, menteeCore)
+	}
+
+	return menteesCore, nil
 }
 
 // Select implements mentee.MenteeDataInterface.
