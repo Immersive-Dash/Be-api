@@ -16,7 +16,7 @@ type Mentee struct {
 	HomeAddress     string
 	Telegram        string `gorm:"unique"`
 	ClassID         uint
-	Class           Class
+	Class           string
 	StatusID        uint
 	Gender          string
 	EducationType   string
@@ -29,10 +29,10 @@ type Mentee struct {
 	Status          string
 }
 
-type Class struct {
-	gorm.Model
-	Name string
-}
+// type Class struct {
+// 	gorm.Model
+// 	Name string
+// }
 
 // type StatusEntity struct {
 // 	gorm.Model

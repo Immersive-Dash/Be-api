@@ -15,7 +15,7 @@ type menteeQuery struct {
 func (repo *menteeQuery) Select() ([]mentee.Core, error) {
 	// panic("unimplemented")
 	var menteesData []Mentee
-	tx := repo.db.Preload("Class").Find(&menteesData)
+	tx := repo.db.Find(&menteesData)
 	if tx.Error != nil {
 		return nil, tx.Error
 	}
@@ -31,7 +31,7 @@ func (repo *menteeQuery) Select() ([]mentee.Core, error) {
 			HomeAddress:     value.HomeAddress,
 			Telegram:        value.Telegram,
 			ClassID:         value.ClassID,
-			Class:           mentee.ClassCore{ID: value.Class.ID, Name: value.Class.Name},
+			Class:           value.Class,
 			Gender:          value.Gender,
 			EducationType:   value.EducationType,
 			Major:           value.Major,
