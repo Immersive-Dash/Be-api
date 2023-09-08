@@ -55,28 +55,27 @@ func (repo *menteeQuery) Select(class string, status string, category string) ([
 	var tx *gorm.DB
 
 	//filter by class
-	if class != "" {
-		tx = repo.db.Where("class <> ?", class).Find(&menteesData)
-	} else {
-		tx = repo.db.Find(&menteesData)
-	}
-	if tx.Error != nil {
-		return nil, tx.Error
-	}
+	// if class != "" {
+	// 	tx = repo.db.Where("class <> ?", class).Find(&menteesData)
+	// } else {
+	// 	tx = repo.db.Find(&menteesData)
+	// }
+	// if tx.Error != nil {
+	// 	return nil, tx.Error
+	// }
 
-	//filter by status
-	if status != "" {
-		tx = repo.db.Where("status <> ?", status).Find(&menteesData)
-	} else {
-		tx = repo.db.Find(&menteesData)
-	}
-	if tx.Error != nil {
-		return nil, tx.Error
-	}
+	// //filter by status
+	// if status != "" {
+	// 	tx = repo.db.Where("status <> ?", status).Find(&menteesData)
+	// } else {
+	// 	tx = repo.db.Find(&menteesData)
+	// }
+	// if tx.Error != nil {
+	// 	return nil, tx.Error
+	// }
 
-	//filter by category
-	if category != "" {
-		tx = repo.db.Where("education_type = ?", category).Find(&menteesData)
+	if category != "" || class != "" || status != "" {
+		tx = repo.db.Where("education_type = ?", category, "class = ?", class, "status = ?", status).Find(&menteesData)
 	} else {
 		tx = repo.db.Find(&menteesData)
 	}
