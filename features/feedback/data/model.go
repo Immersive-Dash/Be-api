@@ -18,7 +18,7 @@ func ModelToCore(dataModel Feedback) feedback.Core {
 		ID:       dataModel.ID,
 		Notes:    dataModel.Notes,
 		MenteeID: dataModel.MenteeID,
-		Status:   dataModel.status,
+		Status:   dataModel.Status,
 	}
 }
 
@@ -27,6 +27,6 @@ func CoreToModel(dataCore feedback.Core) Feedback {
 		Model:    gorm.Model{},
 		Notes:    dataCore.Notes,
 		MenteeID: dataCore.MenteeID,
-		status:   dataCore.Status,
+		Status:   dataCore.Status,
 	}
 }
