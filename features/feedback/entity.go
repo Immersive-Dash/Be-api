@@ -1,12 +1,9 @@
 package feedback
 
-import _dataMentee "Immersive_dash/features/mentee"
-
 type Core struct {
 	ID       uint
 	Notes    string
 	MenteeID uint
-	Mentee   _dataMentee.Core
 	Status   string
 }
 

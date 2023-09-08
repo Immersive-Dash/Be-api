@@ -1,5 +1,7 @@
 package handler
 
+import "Immersive_dash/features/feedback"
+
 type MenteeResponse struct {
 	ID            uint   `json:"id"`
 	Class         string `json:"class"`
@@ -11,4 +13,10 @@ type MenteeResponse struct {
 	Email         string `json:"email,omitempty"`
 	Phone         string `json:"phone,omitempty"`
 	Telegram      string `json:"telegram,omitempty"`
+}
+
+type MenteeFeedbackResponse struct {
+	ID        uint            `json:"id_mentee"`
+	Status    string          `json:"status"`
+	Feedbacks []feedback.Core `json:"feedbacks"`
 }

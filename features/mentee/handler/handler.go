@@ -3,6 +3,7 @@ package handler
 import (
 	"Immersive_dash/app/helpers"
 	"Immersive_dash/app/middlewares"
+	_feedbackCore "Immersive_dash/features/feedback"
 	"Immersive_dash/features/mentee"
 	"net/http"
 	"strconv"
@@ -144,4 +145,38 @@ func (handler *MenteeHandler) ReadMentee(c echo.Context) error {
 		// fmt.Println("data: ", userResponse)
 	}
 	return c.JSON(http.StatusOK, helpers.WebResponse(http.StatusOK, "success read data", menteeResponse))
+}
+
+func (handler *MenteeHandler) GetMenteeFeedback(c echo.Context) error {
+	id := c.Param("id_mentee")
+	idParam, errConv := strconv.Atoi(id)
+	if errConv != nil {
+		return c.JSON(http.StatusBadRequest, helpers.WebResponse(http.StatusBadRequest, "error data id. data not valid", nil))
+	}
+
+	result, err := handler.menteeService.GetMenteeFeedback(uint(idParam))
+	if err != nil {
+		if strings.Contains(err.Error(), "validation") {
+			return c.JSON(http.StatusBadRequest, helpers.WebResponse(http.StatusBadRequest, err.Error(), nil))
+		}
+	}
+	var menteeFeedback []MenteeFeedbackResponse
+	for _, mentee := range result {
+		var feedbacks []_feedbackCore.Core
+		for _, feedback := range mentee.Feedbacks {
+			feedbacks = append(feedbacks, _feedbackCore.Core{
+				ID:       feedback.ID,
+				Notes:    feedback.Notes,
+				MenteeID: feedback.MenteeID,
+				Status:   feedback.Status,
+			})
+		}
+		menteeFeedback = append(menteeFeedback, MenteeFeedbackResponse{
+			ID:        mentee.ID,
+			Status:    mentee.Status,
+			Feedbacks: feedbacks,
+		})
+	}
+	return c.JSON(http.StatusOK, helpers.WebResponse(http.StatusOK, "success read data", menteeFeedback))
+
 }
