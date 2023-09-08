@@ -1,10 +1,9 @@
 package feedback
 
 type Core struct {
-	ID       uint
-	Notes    string
-	MenteeID uint
-	Status   string
+	ID     uint   `json:"id"`
+	Notes  string `json:"notes"`
+	Status string `json:"status"`
 }
 
 type FeedbackDataInterface interface {
