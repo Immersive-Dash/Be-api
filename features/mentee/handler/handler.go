@@ -131,7 +131,7 @@ func (handler *MenteeHandler) ReadMentee(c echo.Context) error {
 	for _, value := range result {
 		menteeResponse = append(menteeResponse, MenteeResponse{
 			ID:            value.ID,
-			Class:         value.Class.Name,
+			Class:         value.Class,
 			FullName:      value.FullName,
 			NickName:      value.NickName,
 			Status:        value.Status,
