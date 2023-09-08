@@ -12,6 +12,11 @@ type menteeService struct {
 	validate   *validator.Validate
 }
 
+// GetAllclass implements mentee.MenteeServiceInterface.
+func (*menteeService) GetAllclass(string string, status string, category string) ([]mentee.Core, error) {
+	panic("unimplemented")
+}
+
 // GetMenteeFeedback implements mentee.MenteeServiceInterface.
 func (service *menteeService) GetMenteeFeedback(id uint) ([]mentee.Core, error) {
 	// panic("unimplemented")
@@ -20,9 +25,9 @@ func (service *menteeService) GetMenteeFeedback(id uint) ([]mentee.Core, error) 
 }
 
 // GetAll implements mentee.MenteeServiceInterface.
-func (service *menteeService) GetAll() ([]mentee.Core, error) {
+func (service *menteeService) GetAll(class string, status string, category string) ([]mentee.Core, error) {
 	// panic("unimplemented")
-	result, err := service.menteeData.Select()
+	result, err := service.menteeData.Select(class, status, category)
 	return result, err
 }
 

@@ -49,13 +49,41 @@ func (repo *menteeQuery) SelectMenteeFeedback(id uint) ([]mentee.Core, error) {
 }
 
 // Select implements mentee.MenteeDataInterface.
-func (repo *menteeQuery) Select() ([]mentee.Core, error) {
+func (repo *menteeQuery) Select(class string, status string, category string) ([]mentee.Core, error) {
 	// panic("unimplemented")
 	var menteesData []Mentee
-	tx := repo.db.Find(&menteesData)
+	var tx *gorm.DB
+
+	//filter by class
+	if class != "" {
+		tx = repo.db.Where("class like ?", "%"+class+"%").Find(&menteesData)
+	} else {
+		tx = repo.db.Find(&menteesData)
+	}
 	if tx.Error != nil {
 		return nil, tx.Error
 	}
+
+	//filter by status
+	if status != "" {
+		tx = repo.db.Where("status like ?", "%"+status+"%").Find(&menteesData)
+	} else {
+		tx = repo.db.Find(&menteesData)
+	}
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+
+	//filter by category
+	if category != "" {
+		tx = repo.db.Where("education_type like ?", "%"+category+"%").Find(&menteesData)
+	} else {
+		tx = repo.db.Find(&menteesData)
+	}
+	if tx.Error != nil {
+		return nil, tx.Error
+	}
+
 	var menteesCore []mentee.Core
 	for _, value := range menteesData {
 		menteesCore = append(menteesCore, mentee.Core{
